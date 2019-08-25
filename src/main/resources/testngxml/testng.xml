@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="suite" parallel="classes" thread-count="1">
+<!-- 
+parallel="" thread-count=""
+并行选择：
+methods:每个method使用一个线程 
+tests:每个<test>标签中的所有方法使用一个线程 
+classes:每个class使用一个线程 
+-->
+	<!-- 填写启动浏览器名字：chrome、firefox、ie、ghost以及grid代表分布式，推荐chrome -->
+	<parameter name="browserName" value="chrome" />
+	<!-- 填写浏览器驱动存放路径的属性配置文件位置 -->
+	<parameter name="driverConfigFilePath" value="src/main/resources/config/driver.properties" />
+	<!-- 填写cookies文件保存位置 -->
+	<parameter name="cookiesConfigFilePath" value="src/main/resources/config/cookies.txt" />
+	<!-- 填写测试数据文件存放位置 -->
+	<parameter name="testDataFilePath" value="src/test/resources/testdata" />
+	<!-- 填写AutoIT的exe执行文件位置 -->
+	<parameter name="autoitFolderPath" value="src/test/resources/others/autoit" />
+	<!-- 填写Sikuli的图像存放位置 -->
+	<parameter name="sikuliImageFolderPath" value="src/test/resources/others/sikuli" />
+	<!-- 填写屏幕截图存放位置 -->
+	<parameter name="screenImageFolderPath" value="target/result/screenshot" />
+	<!-- 填写测试运行日志存放位置 -->
+	<parameter name="logRootFolderPath" value="target/result/logs" />
+	<!-- 填写测试的网站url -->
+	<parameter name="testurl" value="https://mail.126.com" />
+	<!-- 填写页面加载等待超时时间(秒) -->
+	<parameter name="pageLoadTimeout" value="30" />
+	<!-- 填写保留测试运行日志时间(天) -->
+	<parameter name="keepLogDay" value="10" />
+	<!-- 填写selenium grid分布式测试是否开启，true：开启，false：关闭 -->
+	<parameter name="isRemote" value="false" />
+	<!-- 填写selenium grid分布式测试的hub节点，若不使用分布式可不填 -->
+	<parameter name="huburl" value="http://192.168.1.100:4444/wd/hub" />
+	<!-- 填写sikuli vnc分布式测试是否开启，true：开启，false：关闭 -->
+	<parameter name="isVNC" value="false" />
+	<!-- 填写sikuli vnc分布式每台vncserver统一的密码 -->
+	<parameter name="vncPassword" value="Gmcc_1234" />
+	<listeners>
+		<!-- 测试用例运行失败截图处理监听 -->
+		<listener class-name="utils.TestNGListener" />
+		<!-- 测试用例运行失败重跑处理监听 -->
+		<!--<listener class-name="utils.TestNGRetryListener" />-->
+	</listeners>
+	<test name="mail" preserve-order="true">
+		<classes>
+			<class name="testrunners.TestRun" />
+		</classes>
+	</test>
+</suite>
