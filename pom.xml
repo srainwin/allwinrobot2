@@ -108,13 +108,14 @@
 		    <artifactId>cucumber-testng</artifactId>
 		    <version>${cucumber.version}</version>
 		</dependency>
-		<!--
+		
 		<dependency>
 		    <groupId>com.aventstack</groupId>
 		    <artifactId>extentreports-cucumber4-adapter</artifactId>
 		    <version>1.0.7</version>
 		</dependency>
-		-->
+		
+		<!--
 		<dependency>
 		    <groupId>com.vimalselvam</groupId>
 		    <artifactId>cucumber-extentsreport</artifactId>
@@ -125,6 +126,8 @@
 		    <artifactId>extentreports</artifactId>
 		    <version>4.0.9</version>
 		</dependency>
+		-->
+		
 	</dependencies>
 
 	<build>
