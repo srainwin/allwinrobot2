@@ -1,6 +1,6 @@
 /***
  * @author xwr
- * @Description 由测试用例继承此基类。启动浏览器和关闭浏览器，以及提供测试数据。
+ * @Description 由测试用例继承此基类。启动浏览器、关闭浏览器、扩展报告配置加载、提供测试数据、测试前后浏览器驱动清理。
 */
 package base;
 
@@ -23,6 +23,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
+import com.cucumber.listener.Reporter;
+
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import utils.LogConfiguration;
 import utils.SeleniumUtil;
@@ -40,7 +42,6 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	protected String cookiesConfigFilePath;
 	protected String testDataFilePath;
 	protected String sikuliImageFolderPath;
-	protected String screenImageFolderPath;
 	protected String autoitFolderPath;
 	protected String driverConfigFilePath;
 	protected String isRemote;
@@ -88,7 +89,6 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 			testurl = itestcontext.getCurrentXmlTest().getParameter("testurl");
 			pageLoadTimeout = Integer.parseInt(itestcontext.getCurrentXmlTest().getParameter("pageLoadTimeout"));
 			sikuliImageFolderPath = itestcontext.getCurrentXmlTest().getParameter("sikuliImageFolderPath");
-			screenImageFolderPath = itestcontext.getCurrentXmlTest().getParameter("screenImageFolderPath");
 			autoitFolderPath = itestcontext.getCurrentXmlTest().getParameter("autoitFolderPath");
 			driverConfigFilePath = itestcontext.getCurrentXmlTest().getParameter("driverConfigFilePath");
 			isRemote = itestcontext.getCurrentXmlTest().getParameter("isRemote");
@@ -115,7 +115,7 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	}
 
 	/**
-	 * @Description 关闭浏览器、关闭VNC、等等的善后工作
+	 * @Description 关闭浏览器、关闭VNC、加载extentreport配置文件、等等的善后工作
 	 */
 	@AfterClass
 	public void teardown() {
@@ -130,8 +130,16 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 			}
 			logger.info("关闭VNC成功");
 			
+			// 加载extentreport的配置文件，用于生成扩展报告
+			Reporter.loadXMLConfig(System.getProperty("user.dir") + "/src/main/resources/config/extentreport-config.xml");
+			Reporter.setSystemInfo("公司", "某某大公司");
+		    Reporter.setSystemInfo("部门", "某某部门");
+		    Reporter.setSystemInfo("团队", "测试组");
+		    Reporter.setSystemInfo("成员", "Allwin测试员");
+		    logger.info("加载extentreport配置文件成功，准备生成extentreport");
+			
 		} catch (Exception e) {
-			logger.error("浏览器等善后工作发生异常，无法关闭", e);
+			logger.error("关闭浏览器、关闭VNC、加载extentreport配置文件、等等的善后工作发生异常", e);
 		}
 	}
 
@@ -280,4 +288,38 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 			logger.error("清理driver进程发生异常", e);
 		}
 	}
+	
+//	/**
+//	 * @Description 生成extentreport并初始化报告配置备用方案
+//	 */
+//	public void extentreportConfig(){
+//	    ExtentHtmlReporter extenthtmlReporter;
+//		ExtentReports extentreport;
+//		ExtentTest extentTest; //extentreport添加截图、日志等需要使用ExtentTest
+//		String reportpath = "/target/result/cucumber-extentreports/report.html";
+//		String configxmlpath = "/src/main/resources/config/extentreport-config.xml";
+//		
+//		// 生成extentreport并初始化报告配置
+//		extenthtmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + reportpath);
+//		extenthtmlReporter.start();
+//		extenthtmlReporter.loadXMLConfig(System.getProperty("user.dir") + configxmlpath);
+//		extenthtmlReporter.config().setTheme(Theme.STANDARD);
+//		extenthtmlReporter.config().setEncoding("UTF-8");
+//		extenthtmlReporter.config().setProtocol(Protocol.HTTPS);
+//		extenthtmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
+//		extenthtmlReporter.config().setDocumentTitle("AllWinRobot2");
+//		extenthtmlReporter.config().setReportName("AllWinRobot2 Report");
+//		String js = "$(document).ready(function() {"
+//		    	+"var pathName = document.location.pathname;"
+//				+"var index = pathName.substr(1).indexOf('target');"
+//				+"var homepath = pathName.substr(0,index+1);"
+//				+"var div=document.querySelector('.brand-logo > img');"
+//				+"div.src=homepath + 'src/main/resources/reportlogo/allwin.png';"
+//				+"div.style.width=60+'px';"
+//				+"div.style.height=35+'px';"
+//				+"});";
+//		extenthtmlReporter.config().setJS(js);
+//		extentreport = new ExtentReports();
+//		extentreport.attachReporter(extenthtmlReporter);
+//	}
 }

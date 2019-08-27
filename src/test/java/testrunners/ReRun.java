@@ -18,6 +18,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 public class ReRun extends AbstractTestNGCucumberTests{
 
 }
-//public class TestRun extends TestCaseBase{
+//public class TestRun extends TestCaseBase/AbstractTestNGCucumberTests{
 //
 //}

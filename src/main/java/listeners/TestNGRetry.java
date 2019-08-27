@@ -1,4 +1,4 @@
-package utils;
+package listeners;
 
 import org.apache.log4j.Logger;
 import org.testng.IRetryAnalyzer;
@@ -18,6 +18,11 @@ public class TestNGRetry implements IRetryAnalyzer {
 	 */
 	@Override
 	public boolean retry(ITestResult result) {
+		System.out.println("itestresult dayin");
+		System.out.println(result.getName());
+		System.out.println(result.getTestName());
+		System.out.println(result.getInstanceName());
+		System.out.println(result.getAttributeNames());
 		try{
 			if (retryCount <= maxRetryCount) {
 				logger.info("将进行第" + retryCount + "次重跑");

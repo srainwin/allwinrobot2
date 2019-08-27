@@ -18,10 +18,8 @@ classes:每个class使用一个线程
 	<parameter name="testDataFilePath" value="src/test/resources/testdata" />
 	<!-- 填写AutoIT的exe执行文件位置 -->
 	<parameter name="autoitFolderPath" value="src/test/resources/others/autoit" />
-	<!-- 填写Sikuli的图像存放位置 -->
+	<!-- 填写Sikuli的识别图像存放位置 -->
 	<parameter name="sikuliImageFolderPath" value="src/test/resources/others/sikuli" />
-	<!-- 填写屏幕截图存放位置 -->
-	<parameter name="screenImageFolderPath" value="target/result/screenshot" />
 	<!-- 填写测试运行日志存放位置 -->
 	<parameter name="logRootFolderPath" value="target/result/logs" />
 	<!-- 填写测试的网站url -->
@@ -40,9 +38,9 @@ classes:每个class使用一个线程
 	<parameter name="vncPassword" value="Gmcc_1234" />
 	<listeners>
 		<!-- 测试用例运行失败截图处理监听 -->
-		<listener class-name="utils.TestNGListener" />
+		<!--<listener class-name="listeners.TestNGListener" />-->
 		<!-- 测试用例运行失败重跑处理监听 -->
-		<!--<listener class-name="utils.TestNGRetryListener" />-->
+		<listener class-name="listeners.TestNGRetryListener" />
 	</listeners>
 	<test name="mail" preserve-order="true">
 		<classes>
