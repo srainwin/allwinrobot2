@@ -1,7 +1,12 @@
 package testrunners;
 
-import base.TestCaseBase;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.testng.annotations.BeforeClass;
+
 import cucumber.api.CucumberOptions;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(
 		features="src/test/java/features",	//feature文件位置
@@ -18,6 +23,20 @@ import cucumber.api.CucumberOptions;
 		tags = {"@featureGroup1","@scenarioGroup1,@scenarioGroup2"}
 )
 
-public class TestRun extends TestCaseBase{
-	
+public class TestRun2 extends AbstractTestNGCucumberTests{
+	@BeforeClass
+	public void setup(){
+		try{
+			Properties prop = new Properties();
+			FileInputStream fileInput = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/config/extent.properties");
+			prop.load(fileInput);
+			System.out.println("ExtentReport初始化属性如下：");
+			for(Object key:prop.keySet()){
+				System.out.println(key.toString() + "=" + prop.get(key.toString()));
+				System.setProperty(key.toString(), prop.get(key).toString());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

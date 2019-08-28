@@ -29,6 +29,33 @@ PO模式设计维护用例
 DDT数据驱动测试
 类BDD行为驱动测试  
 
+注意：  
+1、不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
+2、产品迭代增删改测试场景时记得备份feature和step文件  
+3、feature文件中英文关键字对照表，feature首行加#language: zh-CN
+| feature          | "功能"  
+| background       | "背景"  
+| scenario         | "场景", "剧本"  
+| scenario_outline | "场景大纲", "剧本大纲"  
+| examples         | "例子"  
+| given            | "* ", "假如", "假设", "假定"  
+| when             | "* ", "当"  
+| then             | "* ", "那么"  
+| and              | "* ", "而且", "并且", "同时"  
+| but              | "* ", "但是"  
+| given (code)     | "假如", "假设", "假定"  
+| when (code)      | "当"  
+| then (code)      | "那么"  
+| and (code)       | "而且", "并且", "同时"  
+| but (code)       | "但是"  
+4、关键字解释:  
+Feature：用来描述我们需要测试的功能  
+background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述  
+Scenario: 用来描述测试场景，scenario_outline也一样  
+Given： 当前场景的前置条件  
+When、then、and、but: 描述测试步骤  
+Then: 断言  
+
 # 框架分层
 * src/main/java  
   * com.demo.base:存放基类，每个用例都要继承  

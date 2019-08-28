@@ -11,18 +11,13 @@ import org.testng.ITestResult;
 public class TestNGRetry implements IRetryAnalyzer {
 	private static Logger logger = Logger.getLogger(TestNGRetry.class.getName());
 	private static int retryCount = 1; // 定义重跑次数
-	private static final int maxRetryCount = 3; // 定义最大重跑次数
+	private static final int maxRetryCount = 1; // 定义最大重跑次数
 
 	/* (non-Javadoc)
 	 * @see org.testng.IRetryAnalyzer#retry(org.testng.ITestResult)
 	 */
 	@Override
 	public boolean retry(ITestResult result) {
-		System.out.println("itestresult dayin");
-		System.out.println(result.getName());
-		System.out.println(result.getTestName());
-		System.out.println(result.getInstanceName());
-		System.out.println(result.getAttributeNames());
 		try{
 			if (retryCount <= maxRetryCount) {
 				logger.info("将进行第" + retryCount + "次重跑");

@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.CellType;
@@ -18,12 +19,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.os.WindowsUtils;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
-
-import com.cucumber.listener.Reporter;
 
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import utils.LogConfiguration;
@@ -53,12 +56,26 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	static Logger logger = Logger.getLogger(TestCaseBase.class.getName());
 
 	/**
-	 * @Description 在BeforeClass的setup前清理本地机残留的浏览器程序和driver进程，远程机暂不支持清理
+	 * @Description 在BeforeClass的setup前清理本地机残留的浏览器程序和driver进程，远程机暂不支持清理，另外还有ExtentReport初始化
 	 * @param itestcontext
 	 */
 	@BeforeSuite
 	public void setupCleanup(ITestContext itestcontext) {
 		killDriver2(itestcontext);
+		
+		// ExtentReport初始化
+		try{
+			Properties prop = new Properties();
+			FileInputStream fileInput = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/config/extent.properties");
+			prop.load(fileInput);
+			logger.info("ExtentReport初始化属性如下：");
+			for(Object key:prop.keySet()){
+				logger.info(key.toString() + "=" + prop.get(key.toString()));
+				System.setProperty(key.toString(), prop.get(key).toString());
+			}
+		}catch(Exception e){
+			logger.error("ExtentReport初始化发生异常", e);
+		}
 	}
 
 	/**
@@ -69,12 +86,12 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	public void teardownCleanup(ITestContext itestcontext) {
 		killDriver2(itestcontext);
 	}
-
+	
 	/**
 	 * @Description 启动浏览器
 	 * @param itestcontext
 	 */
-	@BeforeClass
+	@BeforeMethod
 	public void setup(ITestContext itestcontext) {
 		try {
 			// initLog的参数filename与继承本类的测试类名相同，this指向调用这个setup()方法的测试类
@@ -115,9 +132,9 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	}
 
 	/**
-	 * @Description 关闭浏览器、关闭VNC、加载extentreport配置文件、等等的善后工作
+	 * @Description 关闭浏览器、关闭VNC、等等的善后工作
 	 */
-	@AfterClass
+	@AfterMethod
 	public void teardown() {
 		try {
 			// 关闭浏览器
@@ -130,13 +147,13 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 			}
 			logger.info("关闭VNC成功");
 			
-			// 加载extentreport的配置文件，用于生成扩展报告
-			Reporter.loadXMLConfig(System.getProperty("user.dir") + "/src/main/resources/config/extentreport-config.xml");
-			Reporter.setSystemInfo("公司", "某某大公司");
-		    Reporter.setSystemInfo("部门", "某某部门");
-		    Reporter.setSystemInfo("团队", "测试组");
-		    Reporter.setSystemInfo("成员", "Allwin测试员");
-		    logger.info("加载extentreport配置文件成功，准备生成extentreport");
+//			// 加载extentreport的配置文件，用于生成扩展报告
+//			Reporter.loadXMLConfig(System.getProperty("user.dir") + "/src/main/resources/config/html-config.xml");
+//			Reporter.setSystemInfo("公司", "某某大公司");
+//		    Reporter.setSystemInfo("部门", "某某部门");
+//		    Reporter.setSystemInfo("团队", "测试组");
+//		    Reporter.setSystemInfo("成员", "Allwin测试员");
+//		    logger.info("加载extentreport配置文件成功，准备生成extentreport");
 			
 		} catch (Exception e) {
 			logger.error("关闭浏览器、关闭VNC、加载extentreport配置文件、等等的善后工作发生异常", e);

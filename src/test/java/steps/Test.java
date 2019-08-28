@@ -9,28 +9,28 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class Test {
-	@Given("Open Application and Enter url")
+	@Given("^Open Application and Enter url$")
 	public void open_Application_and_Enter_url() {
-		System.out.println("1");
+		System.out.println("Open Application and Enter url");
 	}
 
-	@When("enter username")
+	@When("^enter username$")
 	public void enter_username() {
-		System.out.println("2");
+		System.out.println("enter username");
 	}
 
-	@When("enter password")
+	@When("^enter password$")
 	public void enter_password() {
-		System.out.println("3");
+		System.out.println("enter password");
 		int min = 1;
         int max = 3;
-        for(int i=0;i<10;i++){
-            Assert.assertEquals(1, new Random().nextInt(max-min)+min);
-        }
+        int val = new Random().nextInt(max-min)+min;
+        System.out.println(val);
+        Assert.assertEquals(1, val);
 	}
 
-	@Then("verify Msg")
+	@Then("^verify Msg$")
 	public void verify_Msg() {
-		System.out.println("4");
+		System.out.println("verify Msg");
 	}
 }

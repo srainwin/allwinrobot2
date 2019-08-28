@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extentreports>
   <configuration>
-    <!-- 加载样式访问的需翻墙的外部资源地址，设置为extentreports则样式加载没问题 -->
-    <cdn>extentreports</cdn>
+    <!-- 加载样式访问的需翻墙的外部资源地址，设置为extentreports则样式加载没问题(低版本extentreport的标签叫cdn) -->
+    <resourceCDN>extentreports</resourceCDN>
     
     <!-- report theme --> <!-- standard, dark -->
     <theme>standard</theme>
@@ -44,6 +44,18 @@
         	var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("target");
 			var homepath = pathName.substr(0,index+1);
+			var div=document.querySelector('.brand-logo > img');
+			div.src=homepath + "src/main/resources/reportlogo/allwin.png";
+			div.style.width=60+"px";
+			div.style.height=35+"px";
+        });
+      ]]>
+      <!--
+      <![CDATA[
+        $(document).ready(function() {
+        	var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("target");
+			var homepath = pathName.substr(0,index+1);
 			var father = document.querySelector('.nav-wrapper');
 			var oldchild = document.querySelector('.brand-logo');
 			var newchild = document.createElement("img"); 
@@ -54,6 +66,7 @@
 			father.removeChild(oldchild);
         });
       ]]>
+      -->
     </scripts>
     
     <!-- custom styles -->

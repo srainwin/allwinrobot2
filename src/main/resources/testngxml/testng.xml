@@ -38,13 +38,14 @@ classes:每个class使用一个线程
 	<parameter name="vncPassword" value="Gmcc_1234" />
 	<listeners>
 		<!-- 测试用例运行失败截图处理监听 -->
-		<!--<listener class-name="listeners.TestNGListener" />-->
+		<listener class-name="listeners.TestNGListener" />
 		<!-- 测试用例运行失败重跑处理监听 -->
-		<listener class-name="listeners.TestNGRetryListener" />
+		<!-- <listener class-name="listeners.TestNGRetryListener" />-->
 	</listeners>
 	<test name="mail" preserve-order="true">
 		<classes>
 			<class name="testrunners.TestRun" />
+			<class name="testrunners.ReRun" />
 		</classes>
 	</test>
 </suite>

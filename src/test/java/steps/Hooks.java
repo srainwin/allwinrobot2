@@ -1,6 +1,7 @@
 package steps;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,13 +10,21 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import com.cucumber.listener.Reporter;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import utils.SeleniumUtil;
 
+/**
+ * @author XWR
+ * @Description Hooks是cucumber中每一个Scenario都会执行的前置处理和后置处理
+ * 				Hooks.java文件与“step”.java文件一样只需放到steps文件夹便会被执行
+ */
 public class Hooks {
 	public Logger logger = Logger.getLogger(Hooks.class.getName());
 	
@@ -26,12 +35,14 @@ public class Hooks {
 	
 	@After
 	public void tearDown(Scenario scenario){
+		System.out.println("123456789123456789123456789:"+scenario.getName());
+		
 		// 对cucumber-report嵌入失败场景截图
 		try{
 			if (scenario.isFailed()) {
 				byte[] screenshotAs = null;
 				screenshotAs = ((TakesScreenshot) SeleniumUtil.threadWebDriver.get()).getScreenshotAs(OutputType.BYTES);
-				scenario.embed(screenshotAs, "image/png"); 
+				scenario.embed(screenshotAs, "image/png");
 			}
 			logger.info("cucumber-report成功嵌入失败场景截图");
 		}catch(Exception e){
@@ -39,23 +50,23 @@ public class Hooks {
 		}
 		
 		// 对cucumber-extentreport嵌入失败场景截图
-		try{
-			if (scenario.isFailed()) {
-				File screenfolder = new File(System.getProperty("user.dir") + "/target/result/cucumber-extentreports/screenshots/");
-				if (!screenfolder.exists() && !screenfolder.isDirectory()) {
-					screenfolder.mkdirs();
-				}
-				SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmss");
-				String screenname = scenario.getName() + dateformat.format(new Date()) + ".png";
-				File srcFile = ((TakesScreenshot) SeleniumUtil.threadWebDriver.get()).getScreenshotAs(OutputType.FILE);
-				File destFile = new File(screenfolder.getAbsolutePath() + "/" + screenname);
-				FileUtils.copyFile(srcFile, destFile);
-				Reporter.addScreenCaptureFromPath(destFile.getAbsolutePath());
-			}
-			logger.info("cucumber-extentreport成功嵌入失败场景截图");
-		}catch(Exception e){
-			logger.error("cucumber-extentreport嵌入失败场景截图时发生异常",e);
-		}
+//		try{
+//			if (scenario.isFailed()) {
+//				File screenfolder = new File(System.getProperty("user.dir") + "/target/result/cucumber-extentreports/screenshots/");
+//				if (!screenfolder.exists() && !screenfolder.isDirectory()) {
+//					screenfolder.mkdirs();
+//				}
+//				SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmss");
+//				String screenname = scenario.getName() + dateformat.format(new Date()) + ".png";
+//				File srcFile = ((TakesScreenshot) SeleniumUtil.threadWebDriver.get()).getScreenshotAs(OutputType.FILE);
+//				File destFile = new File(screenfolder.getAbsolutePath() + "/" + screenname);
+//				FileUtils.copyFile(srcFile, destFile);
+//				Reporter.addScreenCaptureFromPath(destFile.getAbsolutePath());
+//			}
+//			logger.info("cucumber-extentreport成功嵌入失败场景截图");
+//		}catch(Exception e){
+//			logger.error("cucumber-extentreport嵌入失败场景截图时发生异常",e);
+//		}
 	}
 		
 //	/**
