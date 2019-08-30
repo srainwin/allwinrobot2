@@ -1,4 +1,4 @@
-package utils;
+package cucumber;
 
 import java.io.File;
 import java.util.List;
@@ -10,15 +10,18 @@ import com.jayway.jsonpath.JsonPath;
 
 /**
  * @author XWR
- * @Description 解析json形式的页面对象文件，以此获取selenium元素定位或sikuli图像名字
+ * @Description 解析json形式的页面对象文件，以此获取selenium元素定位或sikuli图像名字，也可通过测试上下文来获取
  */
-public class JsonPageParser {
-	private File jsonfile;
+public class PageContext {
+	private File jsonPageFile;
 	private Logger logger;
 
-	public JsonPageParser(String jsonfileName) {
-		this.logger = Logger.getLogger(JsonPageParser.class.getName());
-		this.jsonfile = new File(System.getProperty("user.dir") + "/src/main/java/com/demo/pages/" + jsonfileName);
+	public PageContext() {
+		logger = Logger.getLogger(PageContext.class.getName());
+		}
+	
+	public void setPagefile(String jsonPagefileName){
+		jsonPageFile = new File(System.getProperty("user.dir") + "/src/main/java/com/demo/pages/" + jsonPagefileName);
 	}
 
 	/**
@@ -29,8 +32,15 @@ public class JsonPageParser {
 	public By getElementLocator(String locatorName){
 		By locator = null;
 		try{
-			List<String> locatorTypeList = JsonPath.read(jsonfile, "$.." + locatorName + "[1]");
-			List<String> locatorValueList = JsonPath.read(jsonfile, "$.." + locatorName + "[2]");
+			/*jsonpath提供了类似正则表达式的语法
+			  $是从根元素开始查询
+			  ..是深沉扫描子孙元素
+			  locatorName是需要匹配的元素名
+			  [1]是匹配到的元素名对应的值数组中的第1+1个值
+			  $..locatorName[1]正则表达式是获取json中locatorName数组的第2个值
+			 */
+			List<String> locatorTypeList = JsonPath.read(jsonPageFile, "$.." + locatorName + "[1]"); 
+			List<String> locatorValueList = JsonPath.read(jsonPageFile, "$.." + locatorName + "[2]");
 			String locatorType = locatorTypeList.get(0).toLowerCase();
 			String locatorValue = locatorValueList.get(0);
 
@@ -74,8 +84,8 @@ public class JsonPageParser {
 	 */
 	public String getImageLocator(String locatorName) {
 		try{
-			List<String> locatorTypeList = JsonPath.read(jsonfile, "$.." + locatorName + "[1]");
-			List<String> locatorValueList = JsonPath.read(jsonfile, "$.." + locatorName + "[2]");
+			List<String> locatorTypeList = JsonPath.read(jsonPageFile, "$.." + locatorName + "[1]");
+			List<String> locatorValueList = JsonPath.read(jsonPageFile, "$.." + locatorName + "[2]");
 			String locatorType = locatorTypeList.get(0).toLowerCase();
 			String locatorValue = locatorValueList.get(0);
 			if("imagename".equals(locatorType)){

@@ -1,4 +1,4 @@
-package utils;
+package log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.log4j.PropertyConfigurator;
-import org.testng.ITestContext;
 
 /**
  * @author XWR
@@ -15,7 +14,6 @@ import org.testng.ITestContext;
 public class LogConfiguration {
 	private static SimpleDateFormat sdf;
 	private static String logdate;
-	private static String logRootFolderPath;
 	private static String logDateFolderPath;
 	private static String logFilePath;
 
@@ -23,14 +21,13 @@ public class LogConfiguration {
 	 * @Description 初始化log4j日志(提供外部调用)
 	 * @param fileName
 	 */
-	public static void initLog(String fileName,ITestContext itestcontext) {
+	public static void initLog(String fileName, String logRootFolderPath, String keepLogDay) {
 		sdf = new SimpleDateFormat("yyyyMMdd");
 		logdate = sdf.format(new Date());
-		logRootFolderPath = itestcontext.getCurrentXmlTest().getParameter("logRootFolderPath");
 		logDateFolderPath = logRootFolderPath + "/" + logdate;
 		logFilePath = logDateFolderPath + "/" + fileName + ".log";
 		//日志保留天数
-		int keepLogDay = Integer.valueOf(itestcontext.getCurrentXmlTest().getParameter("keepLogDay"));
+		int keepDay = Integer.valueOf(keepLogDay);
 		//必要时创建logs目录
 		File rootfile = new File(logRootFolderPath);
 		if (!rootfile.exists()) {
@@ -41,7 +38,7 @@ public class LogConfiguration {
 		if ( datefiles != null) {
 			for(File logDateFolder : datefiles){
 				//删除过期日志文件功能
-				delOldLogs(logDateFolder ,keepLogDay);
+				delOldLogs(logDateFolder ,keepDay);
 			}
 			//初始化log4j日志配置
 			log4jconfig(logFilePath);

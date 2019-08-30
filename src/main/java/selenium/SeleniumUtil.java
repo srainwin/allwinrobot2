@@ -1,4 +1,4 @@
-package utils;
+package selenium;
 
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -35,6 +35,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import browser.SelectLocalBrowser;
+import browser.SelectRemoteBrowser;
+
 /**
  * @author xwr
  * @Description 包装所有selenium的操作以及通用方法，简化用例中代码量(在pageoperation包的元素页对象操作类中使用)
@@ -43,7 +46,7 @@ public class SeleniumUtil {
 	public static Logger logger = Logger.getLogger(SeleniumUtil.class.getName());
 	//WebDriver作为成员变量是线程不安全的，线程安全的通常做法是作为@Test测试用例方法内的局部变量
 	//另一线程安全做法是使用ThreadLocal来提供线程局部变量，也就是变量只对当前线程可见，变量存放的值是线程内独享的、线程间互斥的
-	public static ThreadLocal<WebDriver> threadWebDriver = new ThreadLocal<WebDriver>();
+	public ThreadLocal<WebDriver> threadWebDriver = new ThreadLocal<WebDriver>();
 
 	/***
 	 * 启动浏览器，testng的beforeclass使用
@@ -1359,7 +1362,7 @@ public class SeleniumUtil {
 		}
         try {
 			String screenPath = dir.getAbsolutePath() + "/"+screenName;
-			File srcFile = ((TakesScreenshot) SeleniumUtil.threadWebDriver.get()).getScreenshotAs(OutputType.FILE);
+			File srcFile = ((TakesScreenshot) threadWebDriver.get()).getScreenshotAs(OutputType.FILE);
 			File destFile = new File(screenPath);
 			FileUtils.copyFile(srcFile, destFile);
 			logger.info("成功截图保存");

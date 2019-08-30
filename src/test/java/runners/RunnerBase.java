@@ -2,7 +2,7 @@
  * @author xwr
  * @Description 由测试用例继承此基类。启动浏览器、关闭浏览器、扩展报告配置加载、提供测试数据、测试前后浏览器驱动清理。
 */
-package base;
+package runners;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -19,21 +19,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.os.WindowsUtils;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 
 import cucumber.api.testng.AbstractTestNGCucumberTests;
-import utils.LogConfiguration;
-import utils.SeleniumUtil;
-import utils.SikuliUtil;
+import log.LogConfiguration;
+import selenium.SeleniumUtil;
+import sikuli.SikuliUtil;
 
-public class TestCaseBase extends AbstractTestNGCucumberTests {
+public class RunnerBase extends AbstractTestNGCucumberTests {
 	// seleniumUtil对象的driver成员变量最终会通过BeforeClass中运行launchBrowser成员方法获取对应浏览器驱动，所有用例继承LoginBase都使用这个seleniumUtil对象中的driver成员变量
 	protected static SeleniumUtil seleniumUtil = new SeleniumUtil();
 	// sikuliUtil对象的Screen成员变量最终会通过BeforeClass中运行launchScreen成员方法获取屏幕，所有用例继承LoginBase都使用这个sikuliUtil对象中的Screen成员变量
@@ -53,7 +49,7 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	protected String vncPassword;
 	
 
-	static Logger logger = Logger.getLogger(TestCaseBase.class.getName());
+	static Logger logger = Logger.getLogger(RunnerBase.class.getName());
 
 	/**
 	 * @Description 在BeforeClass的setup前清理本地机残留的浏览器程序和driver进程，远程机暂不支持清理，另外还有ExtentReport初始化
@@ -91,11 +87,11 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	 * @Description 启动浏览器
 	 * @param itestcontext
 	 */
-	@BeforeMethod
+	@BeforeClass
 	public void setup(ITestContext itestcontext) {
 		try {
 			// initLog的参数filename与继承本类的测试类名相同，this指向调用这个setup()方法的测试类
-			LogConfiguration.initLog(this.getClass().getSimpleName(), itestcontext);
+//			LogConfiguration.initLog(this.getClass().getSimpleName(), itestcontext);
 			logger.info("正启动浏览器");
 
 			// 给共享数据赋值，供本类或任意继承本类的@Test用例使用（itestcontext是测试的上下文，包含很多信息，包括TestNG配置文件中的参数信息）
@@ -134,7 +130,7 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 	/**
 	 * @Description 关闭浏览器、关闭VNC、等等的善后工作
 	 */
-	@AfterMethod
+	@AfterClass
 	public void teardown() {
 		try {
 			// 关闭浏览器
@@ -146,14 +142,6 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 				sikuliUtil.closeVNC();
 			}
 			logger.info("关闭VNC成功");
-			
-//			// 加载extentreport的配置文件，用于生成扩展报告
-//			Reporter.loadXMLConfig(System.getProperty("user.dir") + "/src/main/resources/config/html-config.xml");
-//			Reporter.setSystemInfo("公司", "某某大公司");
-//		    Reporter.setSystemInfo("部门", "某某部门");
-//		    Reporter.setSystemInfo("团队", "测试组");
-//		    Reporter.setSystemInfo("成员", "Allwin测试员");
-//		    logger.info("加载extentreport配置文件成功，准备生成extentreport");
 			
 		} catch (Exception e) {
 			logger.error("关闭浏览器、关闭VNC、加载extentreport配置文件、等等的善后工作发生异常", e);
@@ -305,38 +293,4 @@ public class TestCaseBase extends AbstractTestNGCucumberTests {
 			logger.error("清理driver进程发生异常", e);
 		}
 	}
-	
-//	/**
-//	 * @Description 生成extentreport并初始化报告配置备用方案
-//	 */
-//	public void extentreportConfig(){
-//	    ExtentHtmlReporter extenthtmlReporter;
-//		ExtentReports extentreport;
-//		ExtentTest extentTest; //extentreport添加截图、日志等需要使用ExtentTest
-//		String reportpath = "/target/result/cucumber-extentreports/report.html";
-//		String configxmlpath = "/src/main/resources/config/extentreport-config.xml";
-//		
-//		// 生成extentreport并初始化报告配置
-//		extenthtmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + reportpath);
-//		extenthtmlReporter.start();
-//		extenthtmlReporter.loadXMLConfig(System.getProperty("user.dir") + configxmlpath);
-//		extenthtmlReporter.config().setTheme(Theme.STANDARD);
-//		extenthtmlReporter.config().setEncoding("UTF-8");
-//		extenthtmlReporter.config().setProtocol(Protocol.HTTPS);
-//		extenthtmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
-//		extenthtmlReporter.config().setDocumentTitle("AllWinRobot2");
-//		extenthtmlReporter.config().setReportName("AllWinRobot2 Report");
-//		String js = "$(document).ready(function() {"
-//		    	+"var pathName = document.location.pathname;"
-//				+"var index = pathName.substr(1).indexOf('target');"
-//				+"var homepath = pathName.substr(0,index+1);"
-//				+"var div=document.querySelector('.brand-logo > img');"
-//				+"div.src=homepath + 'src/main/resources/reportlogo/allwin.png';"
-//				+"div.style.width=60+'px';"
-//				+"div.style.height=35+'px';"
-//				+"});";
-//		extenthtmlReporter.config().setJS(js);
-//		extentreport = new ExtentReports();
-//		extentreport.attachReporter(extenthtmlReporter);
-//	}
 }

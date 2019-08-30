@@ -36,16 +36,10 @@ classes:每个class使用一个线程
 	<parameter name="isVNC" value="false" />
 	<!-- 填写sikuli vnc分布式每台vncserver统一的密码 -->
 	<parameter name="vncPassword" value="Gmcc_1234" />
-	<listeners>
-		<!-- 测试用例运行失败截图处理监听 -->
-		<listener class-name="listeners.TestNGListener" />
-		<!-- 测试用例运行失败重跑处理监听 -->
-		<!-- <listener class-name="listeners.TestNGRetryListener" />-->
-	</listeners>
 	<test name="mail" preserve-order="true">
 		<classes>
-			<class name="testrunners.TestRun" />
-			<class name="testrunners.ReRun" />
+			<class name="runners.TestRun" />
+			<class name="runners.ReRun" />
 		</classes>
 	</test>
 </suite>

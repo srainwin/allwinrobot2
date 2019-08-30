@@ -1,9 +1,11 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/heads/test
 eclipse.preferences.version=1
-<<<<<<< HEAD
-=======
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
->>>>>>> refs/heads/test
+encoding//src/main/resources/config/driver.properties=UTF-8
+encoding//src/main/resources/config/runnerBase.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8
