@@ -119,10 +119,11 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 (4)同样安装allure命令行工具，cmd运行命令如下：allure serve D:\allure-results，然后会自动用默认浏览器打开这个网页http://192.168.175.1:49081/index.html，同样需要复制到firefox浏览器才可查看得当  
 
 ## 实际工作说明
-(1)确定feature故事集和测试数据  
-(2)确定page页面元素集  
-(4)确定每个页面元素集的元素定位(如果产品未有成品可以放有产品成品后再做)  
-(5)确定测试上下文共享变量的调整(包括page、data、自定义变量、等等)  
-(6)确定step故事步骤脚本集  
+(1)确定feature故事集和测试数据|/allwinrobot2/src/test/java/features  
+(2)确定page页面元素集|/allwinrobot2/src/test/java/pages  
+(4)确定每个页面元素集的元素定位值(如果产品未有成品可以放有产品成品后再做)|/allwinrobot2/src/test/java/pages  
+(5)确定测试上下文共享内容的调整|/allwinrobot2/src/main/java/cucumber/Context.java  
+（基础共享变量已固定， page共享自动获取，这两个不需调整，只需调整自定义的共享变量）  
+(6)确定step故事步骤脚本集并且每个脚本添加测试上下文共享构造方法|/allwinrobot2/src/test/java/steps  
 (7)调试脚本  
 (8)完成  

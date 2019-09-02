@@ -27,35 +27,49 @@ public class Hooks {
 	@Before
 	public void setUp(Scenario scenario) {
 		// 日志配置初始化
-		System.out.println("开始日志配置初始化");
-		LogConfiguration.initLog(scenario.getClass().getSimpleName(), 
-								 testContext.getlogRootFolderPath(),
-								 testContext.getkeepLogDay());
-		System.out.println("日志配置初始化成功");
-		try {
+		try{
+			System.out.println("开始日志配置初始化");
+			LogConfiguration.initLog(scenario.getClass().getSimpleName(),
+									 testContext.getlogRootFolderPath(),
+									 testContext.getkeepLogDay());
+			System.out.println("日志配置初始化成功");
+		}catch(Exception e){
+			System.out.println("日志配置初始化失败");
+			e.printStackTrace();
+		}
+		
+		// selenium启动初始化
+		try{
 			logger.info("正启动浏览器");
 			// 启动本地或者远程的某款浏览器
 			testContext.getseleniumUtil()
 					   .launchBrowser(testContext.getbrowserName(),
-							   		  testContext.getdriverConfigFilePath(), 
-							   		  testContext.getisRemote(), 
+							   		  testContext.getdriverConfigFilePath(),
+							   		  testContext.getisRemote(),
 							   		  testContext.gethuburl(),
 							   		  testContext.getpageLoadTimeout());
+			logger.info(testContext.getbrowserName() + "浏览器启动成功!");
+		} catch (Exception e) {
+			logger.error(testContext.getbrowserName() + "浏览器启动失败，请检查是不是被手动关闭或者其他原因", e);
+		}
 
+		// sikuli启动初始化
+		try{
 			// 启动sikuli屏幕操作器
+			logger.info("正启动屏幕图像识别器");
 			if (testContext.getisVNC().equals("true")) {
 				// VNC
 				testContext.getsikuliUtil()
-						   .launchVNCScreen(testContext.getseleniumUtil().getGridIP(testContext.gethuburl()), 
-								   			testContext.getvncPassword(), 
+						   .launchVNCScreen(testContext.getseleniumUtil().getGridIP(testContext.gethuburl()),
+								   			testContext.getvncPassword(),
 								   			testContext.getsikuliImageFolderPath());
 			} else {
 				// local
 				testContext.getsikuliUtil().launchScreen(testContext.getsikuliImageFolderPath());
 			}
-			logger.info(testContext.getbrowserName() + "浏览器启动成功!");
-		} catch (Exception e) {
-			logger.error(testContext.getbrowserName() + "浏览器不能正常工作，请检查是不是被手动关闭或者其他原因", e);
+			logger.info("屏幕图像识别器启动成功!");
+		}catch(Exception e){
+			logger.error(testContext.getbrowserName() + "屏幕图像识别器启动失败", e);
 		}
 
 	}
@@ -63,7 +77,7 @@ public class Hooks {
 	@After
 	public void tearDown(Scenario scenario) {
 		// 对cucumber-report嵌入失败场景截图，allure-cucumber4-jvm也会自动附加scenario.embed的图片到allure-report
-		try {
+		try{
 			if (scenario.isFailed()) {
 				byte[] screenshotAs = null;
 				screenshotAs = ((TakesScreenshot) testContext.getseleniumUtil().threadWebDriver.get()).getScreenshotAs(OutputType.BYTES);
@@ -74,8 +88,8 @@ public class Hooks {
 			logger.error("测试报告嵌入失败场景的截图时发生异常", e);
 		}
 		
-		// 关闭浏览器、关闭VNC、等等的善后工作
-		try {
+		// 关闭浏览器、关闭VNC
+		try{
 			// 关闭浏览器
 			testContext.getseleniumUtil().quit();
 			logger.info("关闭浏览器成功");
@@ -87,6 +101,7 @@ public class Hooks {
 		} catch (Exception e) {
 			logger.error("关闭浏览器、关闭VNC、等等的善后工作发生异常", e);
 		}
+		
 	}
 
 	// /**

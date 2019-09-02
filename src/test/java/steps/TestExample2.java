@@ -4,17 +4,16 @@ import java.util.Random;
 
 import org.testng.Assert;
 
-import cucumber.Context;
 import cucumber.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class Test2 {
+public class TestExample2 {
 	TestContext testContext;
 	String browserName;
 	
-	public Test2(TestContext context) {
+	public TestExample2(TestContext context) {
 		testContext = context;
 		browserName = testContext.getbrowserName();
 	}
@@ -28,8 +27,12 @@ public class Test2 {
 	@When("^enter username2$")
 	public void enter_username2() {
 		System.out.println("enter username2");
-		
-		System.out.println(testContext.getcustomContext().getContext(Context.username));
+
+		System.out.println(testContext.getcustomContext().getContext("username"));
+		testContext.getcustomContext().addCoverContext("username", "Allwin3");
+		System.out.println(testContext.getcustomContext().getContext("username"));
+		testContext.getcustomContext().delContext("username");
+		testContext.getcustomContext().addContext("123", "123");
 	}
 
 	@When("^enter password2$")

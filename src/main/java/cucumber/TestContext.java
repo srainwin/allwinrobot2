@@ -59,7 +59,7 @@ public class TestContext {
 	//构造方法负责实例化共享变量，由于定义都是private权限，所以使用时用对应get方法
 	public TestContext(){
 		
-		//基础共享变量，需在runnerBase.properties文件中更改维护
+		//基础共享变量，程序正常运行必须，需在BaseContext.properties文件中更改维护
 		seleniumUtil = new SeleniumUtil();
 		sikuliUtil = new SikuliUtil();
 		browserName = key2value("browserName");
@@ -89,14 +89,14 @@ public class TestContext {
 		String value = "";
 		try{
 			Properties properties = new Properties();
-			// 读取runnerBase.properties文件
-			FileReader filereader = new FileReader(System.getProperty("user.dir") + "/src/main/resources/config/runnerBase.properties");
+			// 读取BaseContext.properties文件
+			FileReader filereader = new FileReader(System.getProperty("user.dir") + "/src/main/resources/config/BaseContext.properties");
 			properties.load(filereader);
 			// 获取key对应的value值
 			value = properties.getProperty(key);
 		}catch(Exception e){
 			if(value.equals("")){
-				System.out.println("[error]:runnerBase.properties文件没有" + key + "对应的值");
+				System.out.println("[error]:BaseContext.properties文件没有" + key + "对应的值");
 			}
 			e.printStackTrace();
 		}

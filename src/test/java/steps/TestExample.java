@@ -4,17 +4,16 @@ import java.util.Random;
 
 import org.testng.Assert;
 
-import cucumber.Context;
 import cucumber.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class Test {
+public class TestExample {
 	TestContext testContext;
 	String browserName;
 	
-	public Test(TestContext context) {
+	public TestExample(TestContext context) {
 		testContext = context;
 		browserName = testContext.getbrowserName();
 	}
@@ -22,10 +21,13 @@ public class Test {
 	@Given("^Open Application and Enter url$")
 	public void open_Application_and_Enter_url() {
 		System.out.println("Open Application and Enter url");
+		
 		browserName = "firefox";
 		System.out.println(browserName);
-
-		testContext.getcustomContext().putContext(Context.username, "Allwin");
+		System.out.println(testContext.getbrowserName());
+		
+		String username = "Allwin";
+		testContext.getcustomContext().addContext("username", username);
 	}
 
 	@When("^enter username$")
@@ -33,13 +35,19 @@ public class Test {
 		System.out.println("enter username");
 		System.out.println(browserName);
 		
-		System.out.println(testContext.getcustomContext().getContext(Context.username));
+		System.out.println(testContext.getcustomContext().getContext("username"));
 		
 	}
 
 	@When("^enter password$")
 	public void enter_password() {
 		System.out.println("enter password");
+		
+
+		testContext.getcustomContext().addContext("password", "123456");
+		testContext.getcustomContext().setContext("username", "Allwin2");
+		System.out.println(testContext.getcustomContext().getContext("username"));
+		
 		int min = 1;
         int max = 3;
         int val = new Random().nextInt(max-min)+min;
@@ -55,14 +63,16 @@ public class Test {
 	@Given("^Open Application and Enter url1$")
 	public void open_Application_and_Enter_url1() {
 		System.out.println("Open Application and Enter url1");
+		
 		System.out.println(browserName);
+		System.out.println(testContext.getbrowserName());
 	}
 
 	@When("^enter username1$")
 	public void enter_username1() {
 		System.out.println("enter username1");
 		
-		System.out.println(testContext.getcustomContext().getContext(Context.username));
+		System.out.println(testContext.getcustomContext().getContext("username"));
 	}
 
 	@When("^enter password1$")

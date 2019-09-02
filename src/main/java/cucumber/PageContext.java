@@ -22,6 +22,10 @@ public class PageContext {
 	
 	public void setPagefile(String jsonPagefileName){
 		jsonPageFile = new File(System.getProperty("user.dir") + "/src/main/java/com/demo/pages/" + jsonPagefileName);
+		if( !jsonPageFile.exists() ){
+			logger.warn(jsonPagefileName + "文件不存在！！！");
+		}
+		
 	}
 
 	/**
@@ -72,7 +76,7 @@ public class PageContext {
 				break;
 			}
 		}catch(Exception e){
-			logger.error("获取元素定位值发生异常",e);
+			logger.error("获取元素定位值发生异常，请检查定位是否正确！",e);
 		}
 		return locator;
 	}
