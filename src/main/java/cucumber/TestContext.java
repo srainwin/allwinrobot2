@@ -27,9 +27,8 @@ import sikuli.SikuliUtil;
  * 		第4步：为Step Definition类编写构造函数以共享TestContext
  * 
  * 规则：共享变量可以跨step、跨feature、跨scenario共享
- * 		共享变量不可变(就算给共享变量赋值后，每运行一个场景picocontainer都会实例化场景和实例化TestContext，使得共享变量恢复原值)
- * 		若想在同一个feature中跨scenario使用已变化的共享变量，则可把get到的共享变量赋值到一个新的全局变量中，然后使用这个全局变量
- * 		若想在不同feature中跨scenario使用已变化的共享变量，则不可能
+ * 		共享变量不可变，自定义共享变量可变
+ * 		
  */
 public class TestContext {
 	//默认必须有共享变量

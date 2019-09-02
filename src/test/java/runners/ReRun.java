@@ -1,7 +1,6 @@
 package runners;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(
 		features="@target/result/rerun.txt",	//重跑文件的位置
@@ -16,6 +15,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		}
 )
 
-public class ReRun extends AbstractTestNGCucumberTests{
+public class ReRun extends RunBase{
 
 }

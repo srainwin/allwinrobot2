@@ -1,7 +1,6 @@
 package runners;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(
 		features="src/test/java/features",	//feature文件位置
@@ -18,6 +17,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		tags = {"@featureGroup1","@scenarioGroup0,@scenarioGroup1,@scenarioGroup2"}
 )
 
-public class TestRun extends AbstractTestNGCucumberTests{
+public class TestRun extends RunBase{
 	
 }

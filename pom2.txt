@@ -7,14 +7,14 @@
 	<!--项目的全球唯一标识符，通常使用全限定的包名区分该项目和其他项目。并且构建时生成的路径也是由此生成， 如com.mycompany.app生成的相对路径为：/com/mycompany/app -->
 	<groupId>com.demo</groupId>
 	<!--构件的标识符，它和group ID一起唯一标识一个构件 -->
-	<artifactId>allwinrobot</artifactId>
+	<artifactId>allwinrobot2</artifactId>
 	<!--项目当前版本，格式为:主版本.次版本.增量版本-限定版本号 -->
 	<version>0.0.1-SNAPSHOT</version>
 	<!--项目产生的构件类型，例如jar、war、ear、pom...，这里不需要 -->
 	<!--<packaging>jar</packaging>-->
 
 	<!--项目的名称, Maven产生的文档用 -->
-	<name>allwinrobot</name>
+	<name>allwinrobot2</name>
 	<!--项目主页的URL, Maven产生的文档用 -->
 	<url>http://maven.apache.org</url>
 
@@ -22,8 +22,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<allure.version>2.10.0</allure.version>
-		<aspectj.version>1.9.2</aspectj.version>
+		<cucumber.version>4.2.4</cucumber.version>
+		<aspectj.version>1.8.10</aspectj.version>
 	</properties>
 
 	<!--发布本地构建项目到Nexus的发布地址配置，地址是nexus的releases和snapshots仓库 -->
@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.10</version>
+			<version>6.14.3</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -79,11 +79,6 @@
 			<version>1.7.21</version>
 		</dependency>
 		<dependency>
-			<groupId>io.qameta.allure</groupId>
-			<artifactId>allure-testng</artifactId>
-			<version>${allure.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.1.0</version>
@@ -93,10 +88,46 @@
     		<artifactId>json-path</artifactId>
     		<version>2.2.0</version>
 		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-core</artifactId>
+		    <version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-java</artifactId>
+		    <version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-jvm</artifactId>
+		    <version>${cucumber.version}</version>
+		    <type>pom</type>
+		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-testng</artifactId>
+		    <version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+			 <groupId>io.cucumber</groupId>
+			 <artifactId>cucumber-picocontainer</artifactId>
+			 <version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+			 <groupId>org.picocontainer</groupId>
+			 <artifactId>picocontainer</artifactId>
+			 <version>2.15</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.qameta.allure</groupId>
+		    <artifactId>allure-cucumber4-jvm</artifactId>
+		    <version>2.12.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>allwinrobot</finalName>
+		<finalName>allwinrobot2</finalName>
 		<!-- 引入资源文件 -->
 		<resources>
 			<resource>
@@ -109,46 +140,41 @@
 			</testResource>
 		</testResources>
 		<plugins>
-			<!--若需要本地显示allure测试报告还需要额外配置allure和jetty的maven插件，这里不需要本地显示allure测试报告，直接用jenkins下载allure插件配置即可查看测试报告 -->
 			<plugin>
 				<!--maven执行测试的插件 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
+				<version>2.20</version>
 				<configuration>
 					<!--设置maven使用独立的类加载器 -->
 					<useSystemClassLoader>false</useSystemClassLoader>
-					<!--设置参数命令行：解决用maven执行test时日志乱码的问题，解决maven out of memory问题，allure所需aspectj的jar包加入加载 -->
+					<!--设置参数命令行：解决用maven执行test时日志乱码的问题，解决maven out of memory问题 -->
 					<argLine>
 						-Dfile.encoding=UTF-8 -Xms1024m -Xmx1024m
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 					<!--代表的是要执行的测试套件名称 -->
 					<suiteXmlFiles>
-						<suiteXmlFile>src/main/resources/runner/testng.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/java/runners/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
-					<!--maven工作根目录，如果不加的话则是默认根目录为项目名 -->
-					<workingDirectory>target/</workingDirectory>
 					<!--定义maven运行测试生成的报表路径 -->
 					<reportsDirectory>target/result/maven-testng-report</reportsDirectory>
 					<!--测试失败后，是否忽略并继续测试 -->
 					<testFailureIgnore>true</testFailureIgnore>
-					<!--生成allure-result的目录 -->
-					<systemProperties>
-						<property>
-							<name>allure.results.directory</name>
-							<value>result/allure-results</value>
-						</property>
-					</systemProperties>
+					<!--系统属性配置，如allure相关属性 -->
+					<systemPropertyVariables>
+	                    <allure.results.directory>target/result/allure-results</allure.results.directory>
+	                    <allure.link.issue.pattern>https://example.org/browse/{}</allure.link.issue.pattern>
+	                    <allure.link.tms.pattern>https://example.org/browse/{}</allure.link.tms.pattern>
+                	</systemPropertyVariables>
 				</configuration>
 				<dependencies>
-					<dependency>
-						<!--allure的@Step、@Attachment注解需要正确地启用aspectj加载时编织 -->
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjweaver</artifactId>
-						<version>${aspectj.version}</version>
-					</dependency>
-				</dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
 			</plugin>
 
 			<plugin>
@@ -162,17 +188,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<reporting>
-		<excludeDefaults>true</excludeDefaults>
-		<plugins>
-			<plugin>
-				<groupId>io.qameta.allure</groupId>
-				<artifactId>allure-maven</artifactId>
-				<version>2.10.0</version>
-				<configuration>
-					<reportVersion>${allure.version}</reportVersion>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>
