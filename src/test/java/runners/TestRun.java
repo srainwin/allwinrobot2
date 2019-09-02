@@ -17,6 +17,6 @@ import cucumber.api.CucumberOptions;
 		tags = {"@featureGroup1","@scenarioGroup0,@scenarioGroup1,@scenarioGroup2"}
 )
 
-public class TestRun extends RunBase{
+public class TestRun extends BaseRun{
 	
 }

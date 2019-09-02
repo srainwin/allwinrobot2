@@ -1,89 +1,80 @@
-# allwinrobot
-DDT数据驱动+类BBD行为驱动的自动化测试  
-java + maven + testng + selenium + sikuli + allure  
+# allwinrobot2
+BDD行为驱动的自动化测试  
+java + cucumber + selenium + sikuli + maven + testng + AllureReport  
 
 ## 主要工具
-java:主编程语言（jdk8）  
-maven：项目管理构建工具（3.3.9）  
-testng：测试框架（6.9.10）  
-selenium：web自动化测试工具（3.4.0）  
-sikuli：基于图像识别自动化测试工具（1.1.3）  
-allure：测试报告工具（2.12.1）  
-poi excel：测试数据（4.1.0）  
-log4j：日志管理（1.2.16）  
-jsonpath：json解析页面对象库（2.2.0）
+java-jdk8:主编程语言  
+maven：项目管理构建工具  
+testng：单元测试框架  
+cucumber：bdd行为驱动开发框架  
+selenium：web自动化测试工具  
+sikuli：基于图像识别自动化测试工具  
+allure：测试报告工具  
+log4j：日志管理  
+jsonpath：json解析页面对象库  
 
 ## 主要功能
+POM模式设计维护用例  
+cucumber业务故事与代码分层协作方式进行自动化测试编写  
+cucumber数据表获取测试数据  
 selenium常用api封装提供调用ui自动化操作  
 sikuli常用api封装提供调用图像识别自动化操作  
 可调用autoit的exe脚本进行windows自动化操作  
 提供选择ie、chrome、firefox和ghost浏览器进行测试  
 支持并行分布式执行用例  
-PO模式设计维护用例  
 添加cookies免登录  
-从excel获取测试数据  
-记录用例运行日志信息  
+日志记录用例运行信息  
+测试上下文内容共享  
 提供美观步级的测试报告  
-失败用例可截图  
+失败用例可截图至报告  
 失败用例可重跑  
-DDT数据驱动测试
-类BDD行为驱动测试  
-
-注意：  
-1、不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
-2、产品迭代增删改测试场景时记得备份feature和step文件  
-3、feature文件中英文关键字对照表，feature首行加#language: zh-CN
-| feature          | "功能"  
-| background       | "背景"  
-| scenario         | "场景", "剧本"  
-| scenario_outline | "场景大纲", "剧本大纲"  
-| examples         | "例子"  
-| given            | "* ", "假如", "假设", "假定"  
-| when             | "* ", "当"  
-| then             | "* ", "那么"  
-| and              | "* ", "而且", "并且", "同时"  
-| but              | "* ", "但是"  
-| given (code)     | "假如", "假设", "假定"  
-| when (code)      | "当"  
-| then (code)      | "那么"  
-| and (code)       | "而且", "并且", "同时"  
-| but (code)       | "但是"  
-4、关键字解释:  
-Feature：用来描述我们需要测试的功能  
-background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述  
-Scenario: 用来描述测试场景，scenario_outline也一样  
-Given： 当前场景的前置条件  
-When、then、and、but: 描述测试步骤  
-Then: 断言  
 
 # 框架分层
 * src/main/java  
-  * com.demo.base:存放基类，每个用例都要继承  
-  * com.demo.pages:页面对象层，存放每个功能页的元素定位或图像名称（新版使用json文件，旧版java文件样例已归档到backups文件夹中）  
-  * com.demo.pagesteps:页面对象操作层，存放每个功能页的操作步骤（每个步骤方法前添加@Step("业务逻辑描述")注解进行类似BDD行为驱动测试）  
-  * com.demo.utils:存放封装工具类、配置类、监听类，等等  
+  * browser  
+  	* SelectLocalBrowser.java：选择本地浏览器驱动  
+  	* SelectRemoteBrowser.java：选择远程浏览器驱动  
+  * cucumber  
+  	* CustomContext.java：测试上下文-自定义，放到TestContext中共享  
+  	* PageContext.java：测试上下文-POM模式的页面，放到TestContext中共享  
+  	* TestContext.java：测试上下文共享，每个故事代码实现类添加构造方法带TestContext形参  
+  * log  
+	* LogConfiguration.java：日志初始化配置  
+  * selenium  
+  	* SeleniumUtil.java：selenium api封装  
+  * sikuli  
+  	* SikuliUtil.java：sikuli api封装  
 * src/main/resources  
-  * config:存放配置信息文件  
-  * driver:存放各类浏览器驱动  
-  * runner:存放配置控制testng运行的xml文件（某些配置参数需在此文件填写，如url等等）  
+  * config  
+  	* baseContext.properties：程序运行基础参数，放到TestContext中共享  
+  	* customContext.properties：自定义参数，与CustomContext一起配置放到TestContext中共享  
+  	* driver.properties：浏览器驱动路径参数配置，与SelectLocalBrowser和SelectRemoteBrowser一起配置  
+  	* cookies.txt：由SeleniumUtil类的cookiesSaveInFile方法保存浏览器cookies信息到此，再由addcookies方法获取添加cookies  
+  * driver：浏览器驱动文件  
 * src/test/java  
-  * com.demo.cases.xxx:xxx功能模块的测试用例，直接调用pagesteps的步骤方法即可  
-* src/test/resources  
-  * testdata:存放excel测试数据（DDT数据驱动测试）  
-  * others  
-    * autoit:存放autoit的exe脚本  
-    * sikuli:存放sikuli进行图像识别所需的png图像文件  
+  * pages：json形式的页面元素定位集  
+  * features：cucumber-feature形式的业务故事集  
+  * steps：cucumber-step形式的业务故事代码实现集  
+  * runners  
+  	* BaseRun.java：基础运行的run，含testng的Before和After，每个run必须继承此类  
+  	* TestRun.java：测试运行的run  
+  	* ReRun.java：失败场景重跑的run  
+  	* testng.xml：testng配置文件  
+* src/test/resources   
+  * autoitScripts:存放autoit的exe脚本  
+  * sikuliImages:存放sikuli进行图像识别所需的png图像文件  
 * target  
   * result  
     * allure-results:存放allure测试报告  
+    * cucumber-reports:存放cucumber测试报告  
     * logs:存放每天用例运行日志  
-    * screenshot:存放失败用例的截图  
     * maven-testng-report:存放testng自带的测试报告  
+    * rerun.txt：失败场景需重跑记录  
 
 ## pom说明
 pom.xml：默认使用了nexus私服仓库  
-pom1.txt：使用nexus私服仓库的配置信息，需要时复制到pom.xml  
-pom2.txt：不使用nexus私服仓库配置 信息，需要时复制到pom.xml  
+pom2.txt：使用nexus私服仓库的配置信息，需要时复制到pom.xml  
+pom3.txt：不使用nexus私服仓库配置信息，需要时复制到pom.xml  
 
 ## selenium grid分布式测试使用说明
 (1)准备多台服务器并能互相网络访问，vm虚拟机要用桥接网络方式，并每台机正确安装各类浏览器  
@@ -116,14 +107,42 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 (1)测试脚本运行后，allure只会产生一个allure-result目录文件，该目录文件是不能直接查看报告的  
 (2)查看allure报告方法一，使用jenkins的allure report插件  
 (3)查看allure报告方法二，本地安装allure命令行工具allure-commandline，下载解压allure-commandline包后配置bin目录到系统path变量中，然后cmd运行命令生成html报告，例如：allure generate D:\allure-results -o D:\allure-results\html，最后用firefox打开index.html文件，记得用firefox，其他浏览器会存在跨域协议问题（跨域请求仅支持协议：http, data, chrome, chrome-extension, https, chrome-extension-resource），但是Filefox支持file协议下的AJAX请求  
-(4)同样安装allure命令行工具，cmd运行命令如下：allure serve D:\allure-results，然后会自动用默认浏览器打开这个网页http://192.168.175.1:49081/index.html，同样需要复制到firefox浏览器才可查看得当  
+(4)查看allure报告方法三，同样安装allure命令行工具，cmd运行命令如下：allure serve D:\allure-results，然后会自动用默认浏览器打开这个网页http://192.168.175.1:49081/index.html，同样需要复制到firefox浏览器才可查看得当  
 
 ## 实际工作说明
-(1)确定feature故事集和测试数据|/allwinrobot2/src/test/java/features  
-(2)确定page页面元素集|/allwinrobot2/src/test/java/pages  
-(4)确定每个页面元素集的元素定位值(如果产品未有成品可以放有产品成品后再做)|/allwinrobot2/src/test/java/pages  
-(5)确定测试上下文共享内容的调整|/allwinrobot2/src/main/java/cucumber/Context.java  
+(1)确定基础运行必要参数：/allwinrobot2/src/main/resources/config/baseContext.properties  
+(2)确定feature故事集和测试数据表：/allwinrobot2/src/test/java/features  
+(3)确定page页面元素集：/allwinrobot2/src/test/java/pages  
+(4)确定每个页面元素集的元素定位值(如果产品未有成品可以放到有产品成品后再做)：/allwinrobot2/src/test/java/pages  
 （基础共享变量已固定， page共享自动获取，这两个不需调整，只需调整自定义的共享变量）  
-(6)确定step故事步骤脚本集并且每个脚本添加测试上下文共享构造方法|/allwinrobot2/src/test/java/steps  
-(7)调试脚本  
-(8)完成  
+(5)确定step故事步骤脚本集并且每个脚本添加测试上下文共享的构造方法：/allwinrobot2/src/test/java/steps  
+(6)确定测试上下文共享内容的调整：/allwinrobot2/src/main/resources/config/customContext.properties  
+(7)确定runner脚本并配置testng.xml：/allwinrobot2/src/test/java/runners  
+(8)调试脚本完成  
+
+## cucumber指导
+1、不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
+2、产品迭代增删改测试场景时记得备份feature和step文件，也可以不删除旧用例，但要用tag标记运行集  
+3、feature文件中英文关键字对照表，feature首行加#language: zh-CN  
+| feature          | "功能"  
+| background       | "背景"  
+| scenario         | "场景", "剧本"  
+| scenario_outline | "场景大纲", "剧本大纲"  
+| examples         | "例子"  
+| given            | "* ", "假如", "假设", "假定"  
+| when             | "* ", "当"  
+| then             | "* ", "那么"  
+| and              | "* ", "而且", "并且", "同时"  
+| but              | "* ", "但是"  
+| given (code)     | "假如", "假设", "假定"  
+| when (code)      | "当"  
+| then (code)      | "那么"  
+| and (code)       | "而且", "并且", "同时"  
+| but (code)       | "但是"  
+4、关键字解释:  
+Feature：用来描述我们需要测试的功能  
+background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述  
+Scenario: 用来描述测试场景，scenario_outline也一样  
+Given： 当前场景的前置条件  
+When、then、and、but: 描述测试步骤  
+Then: 断言  

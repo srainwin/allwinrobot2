@@ -12,8 +12,8 @@ import org.testng.annotations.BeforeSuite;
 import cucumber.TestContext;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-public class RunBase extends AbstractTestNGCucumberTests {
-    Logger logger = Logger.getLogger(RunBase.class.getName());
+public class BaseRun extends AbstractTestNGCucumberTests {
+    Logger logger = Logger.getLogger(BaseRun.class.getName());
 	TestContext context = new TestContext();
 
 	/**

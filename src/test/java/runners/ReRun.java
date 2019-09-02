@@ -15,6 +15,6 @@ import cucumber.api.CucumberOptions;
 		}
 )
 
-public class ReRun extends RunBase{
+public class ReRun extends BaseRun{
 
 }
