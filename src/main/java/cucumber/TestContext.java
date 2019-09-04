@@ -3,6 +3,7 @@ package cucumber;
 import java.io.FileReader;
 import java.util.Properties;
 
+import database.JdbcUtil;
 import selenium.SeleniumUtil;
 import sikuli.SikuliUtil;
 
@@ -31,9 +32,10 @@ import sikuli.SikuliUtil;
  * 		
  */
 public class TestContext {
-	//默认必须有共享变量
-	private static SeleniumUtil seleniumUtil; // seleniumUtil对象的driver成员变量最终会通过运行launchBrowser成员方法获取对应浏览器驱动webdriver，然后每个场景都使用这个共享webdriver对象
-	private static SikuliUtil sikuliUtil; // sikuliUtil对象的Screen成员变量最终会通过运行launchScreen成员方法获取屏幕Screen，然后每个场景都使用这个共享screen对象
+	// 默认必须有共享变量
+	private SeleniumUtil seleniumUtil; // seleniumUtil对象的driver成员变量最终会通过运行launchBrowser成员方法获取对应浏览器驱动webdriver，然后每个场景都使用这个共享webdriver对象
+	private SikuliUtil sikuliUtil; // sikuliUtil对象的Screen成员变量最终会通过运行launchScreen成员方法获取屏幕Screen，然后每个场景都使用这个共享screen对象
+	private JdbcUtil jdbcUtil; // 数据库操作使用
 	private String browserName;
 	private String testurl;
 	private int pageLoadTimeout;
@@ -49,18 +51,18 @@ public class TestContext {
 	private String isVNC;
 	private String vncPassword;
 	
-	//page共享变量（page的上下文内容均在pages目录的json文件中，通过JsonPage）
+	// page共享变量（page的上下文内容均在pages目录的json文件中，通过JsonPage）
 	private PageContext pageContext;
 	
-	//自定义测试上下文的共享变量(自定义的上下文内容写在Context.java枚举类中即可，CustomContext只负责设置和获取)
+	// 自定义测试上下文的共享变量(自定义的上下文内容写在Context.java枚举类中即可，CustomContext只负责设置和获取)
 	private CustomContext customContext ;
-	
-	//构造方法负责实例化共享变量，由于定义都是private权限，所以使用时用对应get方法
-	public TestContext(){
-		
-		//基础共享变量，程序正常运行必须，需在BaseContext.properties文件中更改维护
+
+	// 构造方法负责实例化共享变量，由于定义都是private权限，所以使用时用对应get方法
+	public TestContext() {
+		// 基础共享变量，程序正常运行必须，需在BaseContext.properties文件中更改维护
 		seleniumUtil = new SeleniumUtil();
 		sikuliUtil = new SikuliUtil();
+		jdbcUtil = new JdbcUtil();
 		browserName = key2value("browserName");
 		testurl = key2value("testurl");
 		pageLoadTimeout = Integer.parseInt(key2value("pageLoadTimeout"));
@@ -76,10 +78,10 @@ public class TestContext {
 		isVNC = key2value("isVNC");
 		vncPassword = key2value("vncPassword");
 		
-		//page共享变量，需在pages目录中json形式的page文件更改维护
+		// page共享变量，需在pages目录中json形式的page文件更改维护
 		pageContext = new PageContext();
 		
-		//自定义测试上下文的共享变量，需在Context.java枚举类中更改维护
+		// 自定义测试上下文的共享变量，需在Context.java枚举类中更改维护
 		customContext = new CustomContext();
 		
 	}
@@ -109,6 +111,10 @@ public class TestContext {
 	
 	public SikuliUtil getsikuliUtil(){
 		return sikuliUtil;
+	}
+	
+	public JdbcUtil getjdbcUtil(){
+		return jdbcUtil;
 	}
 	
 	public String getbrowserName(){
@@ -171,7 +177,7 @@ public class TestContext {
 		return customContext;
 	}
 	
-	public PageContext pageContext(){
+	public PageContext getpageContext(){
 		return pageContext;
 	}
 	

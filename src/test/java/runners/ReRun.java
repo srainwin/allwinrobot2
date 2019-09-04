@@ -11,7 +11,8 @@ import cucumber.api.CucumberOptions;
 				"io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm",	//生成allure报告
 				"html:target/result/cucumber-reports/cucumber-pretty",	//生成html报告
 				"json:target/result/cucumber-reports/CucumberTestReport.json",	//生成json报告，供第三方工具转换可视格式
-				"junit:target/result/cucumber-reports/CucumberTestReport.xml" 	//生成xml报告，供第三方工具转换可视格式
+				"junit:target/result/cucumber-reports/CucumberTestReport.xml", 	//生成xml报告，供第三方工具转换可视格式
+				"rerun:target/result/rerun2.txt"	//生成失败场景需重跑的文件
 		}
 )
 

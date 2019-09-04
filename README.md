@@ -16,9 +16,10 @@ jsonpath：json解析页面对象库
 ## 主要功能
 POM模式设计维护用例  
 cucumber业务故事与代码分层协作方式进行自动化测试编写  
-cucumber数据表获取测试数据  
+cucumber自带多种方式数据驱动功能  
 selenium常用api封装提供调用ui自动化操作  
 sikuli常用api封装提供调用图像识别自动化操作  
+jdbc连接数据库操作  
 可调用autoit的exe脚本进行windows自动化操作  
 提供选择ie、chrome、firefox和ghost浏览器进行测试  
 支持并行分布式执行用例  
@@ -38,6 +39,8 @@ sikuli常用api封装提供调用图像识别自动化操作
   	* CustomContext.java：测试上下文-自定义，放到TestContext中共享  
   	* PageContext.java：测试上下文-POM模式的页面，放到TestContext中共享  
   	* TestContext.java：测试上下文共享，每个故事代码实现类添加构造方法带TestContext形参  
+  * database  
+  	* JdbcUtil.java：jdbc数据库操作封装  
   * log  
 	* LogConfiguration.java：日志初始化配置  
   * selenium  
@@ -76,6 +79,9 @@ pom.xml：默认使用了nexus私服仓库
 pom2.txt：使用nexus私服仓库的配置信息，需要时复制到pom.xml  
 pom3.txt：不使用nexus私服仓库配置信息，需要时复制到pom.xml  
 
+## 多线程执行说明
+自定义线程数要在pom文件的maven-surefire-plugin里设置dataproviderthreadcount属性值，不设置时默认为10个线程  
+
 ## selenium grid分布式测试使用说明
 (1)准备多台服务器并能互相网络访问，vm虚拟机要用桥接网络方式，并每台机正确安装各类浏览器  
 (2)下载grid包  
@@ -109,7 +115,7 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 (3)查看allure报告方法二，本地安装allure命令行工具allure-commandline，下载解压allure-commandline包后配置bin目录到系统path变量中，然后cmd运行命令生成html报告，例如：allure generate D:\allure-results -o D:\allure-results\html，最后用firefox打开index.html文件，记得用firefox，其他浏览器会存在跨域协议问题（跨域请求仅支持协议：http, data, chrome, chrome-extension, https, chrome-extension-resource），但是Filefox支持file协议下的AJAX请求  
 (4)查看allure报告方法三，同样安装allure命令行工具，cmd运行命令如下：allure serve D:\allure-results，然后会自动用默认浏览器打开这个网页http://192.168.175.1:49081/index.html，同样需要复制到firefox浏览器才可查看得当  
 
-## 实际工作说明
+## 实际工作流说明
 (1)确定基础运行必要参数：/allwinrobot2/src/main/resources/config/baseContext.properties  
 (2)确定feature故事集和测试数据表：/allwinrobot2/src/test/java/features  
 (3)确定page页面元素集：/allwinrobot2/src/test/java/pages  
@@ -120,10 +126,10 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 (7)确定runner脚本并配置testng.xml：/allwinrobot2/src/test/java/runners  
 (8)调试脚本完成  
 
-## cucumber指导
-1、不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
-2、产品迭代增删改测试场景时记得备份feature和step文件，也可以不删除旧用例，但要用tag标记运行集  
-3、feature文件中英文关键字对照表，feature首行加#language: zh-CN  
+## 附：cucumber与BDD指导
+(1)不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
+(2)产品迭代增删改测试场景时记得备份feature和step文件，也可以不删除旧场景，但要用tag标记场景以确定运行集  
+(3)feature文件中英文关键字对照表，feature首行加#language: zh-CN  
 | feature          | "功能"  
 | background       | "背景"  
 | scenario         | "场景", "剧本"  
@@ -139,10 +145,16 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 | then (code)      | "那么"  
 | and (code)       | "而且", "并且", "同时"  
 | but (code)       | "但是"  
-4、关键字解释:  
-Feature：用来描述我们需要测试的功能  
-background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述  
-Scenario: 用来描述测试场景，scenario_outline也一样  
-Given： 当前场景的前置条件  
-When、then、and、but: 描述测试步骤  
-Then: 断言  
+(4)关键字解释:  
+Feature：用来描述我们需要测试的功能。  
+background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述，但前置条件不要过于复杂。  
+Scenario: 用来描述测试场景，描述中的数据用引号"col"括起来，数据映射到step脚本描述用\"(.*)\"正则表达式与脚本形参col；或者描述下方用数据表|colvalue|，数据映射到step脚本形参DataTable类型，且脚本内容用DataTable类型参数的raw()方法得数据表；或者描述下方用数据地图|col|，数据映射到step脚本形参DataTable类型，且脚本内容用DataTable类型参数的asMaps(col类型.class)方法得数据地图；数据表/地图缺点是自行写循环语句执行多行数据。  
+scenario_outline: 也用来描述测试场景，但搭配数据必须用example:|col|，描述中的数据用引号加尖括号"<col>"括起来，数据映射到step脚本描述也用\"(.*)\"正则表达式与脚本形参col；example好处是多行数据都会循环场景执行。  
+Given： 当前场景的前置条件。  
+When、and、but: 描述测试步骤触发条件。  
+Then: 对步骤结果断言。  
+(5)行为驱动开发（BDD）是一种软件开发的协作方法，可以弥合业务和IT之间的通信差距。BDD可帮助团队更准确地沟通需求，及早发现缺陷并生成随时间保持可维护的软件。它可以帮助团队创建整个团队可以理解的业务需求。指定的例子揭示了人们可能甚至不知道的误解。实践BDD的团队专注于预防缺陷而不是发现缺陷。这样可以减少返工，缩短产品上市时间。  
+(6)您的Cucumber功能应该推动您的实施，而不是反映它。这意味着应该在实现该功能的代码之前编写Cucumber功能。通俗的说就是在产品代码开发前就要思考测试场景/用例，并且是产品经理、需求经理、开发人员、测试人员和客户都要以研讨会形式参与产品使用场景的思考发掘，最终形成cucumber的feature故事集并反复评审。这是要不同于以往只是测试人员在写测试用例甚至无暇顾及写用例，单纯的经验与探索性测试不足以保障产品质量。  
+(7)BDD教程参考官网介绍：  
+https://cucumber.io/docs/guides/bdd-tutorial/  
+https://cucumber.io/docs/bdd/who-does-what/  

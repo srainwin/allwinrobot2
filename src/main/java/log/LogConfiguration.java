@@ -117,9 +117,9 @@ public class LogConfiguration {
 
 			// log4j的Properties配置类，使得创建的Properties对象在log4j中生效
 			PropertyConfigurator.configure(prop);
-			System.out.println("成功初始化log4j日志配置");
+			System.out.println("成功设置log4j日志配置信息");
 		} catch (Exception e) {
-			System.out.println("初始化log4j日志发生异常");
+			System.out.println("设置log4j日志配置信息发生异常");
 			e.printStackTrace();
 		}
 	}

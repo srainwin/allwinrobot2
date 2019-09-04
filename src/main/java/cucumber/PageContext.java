@@ -20,6 +20,10 @@ public class PageContext {
 		logger = Logger.getLogger(PageContext.class.getName());
 		}
 	
+	/**
+	 * @Description 获取元素或图像前都要先设置使用哪个page文件
+	 * @param jsonPagefileName
+	 */
 	public void setPagefile(String jsonPagefileName){
 		jsonPageFile = new File(System.getProperty("user.dir") + "/src/main/java/com/demo/pages/" + jsonPagefileName);
 		if( !jsonPageFile.exists() ){

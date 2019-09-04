@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.os.WindowsUtils;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
 
 import cucumber.TestContext;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -33,6 +34,17 @@ public class BaseRun extends AbstractTestNGCucumberTests {
 	public void teardownCleanup() {
 		killDriver();
 	}
+	
+	/**
+	 * 为cucumber开启并行运行scenario功能（cucumber-jvm4.0.0以上版本才有并行功能）
+	 * 默认提供线程数为10，需要自定义线程数要在pom文件的maven-surefire-plugin里设置dataproviderthreadcount属性
+	 * 不要使用testng.xml里配置的并发，会出问题的，因为cucumber和testng的运行方式始终是有区别，只可用cucumber自带的并行功能
+	 */
+	@Override
+    @DataProvider(parallel = true)
+    public Object[][] scenarios() {
+        return super.scenarios();
+    }
 	
 	/**
 	 * @Description 用于beforesuite和aftersuite清理服务器上的浏览器driver进程

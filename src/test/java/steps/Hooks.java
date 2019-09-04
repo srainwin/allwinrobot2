@@ -16,20 +16,23 @@ import log.LogConfiguration;
  *              Hooks.java文件与“step”.java文件一样只需放到steps文件夹便会被执行，不同的是Hooks不需要与之对应的feature文件
  */
 public class Hooks {
+	
 	public Logger logger = Logger.getLogger(Hooks.class.getName());
 
 	TestContext testContext;
-
+	
 	public Hooks(TestContext context) {
 		testContext = context;
 	}
 
 	@Before
 	public void setUp(Scenario scenario) {
+		// 数据库清理（使用JdbcUtil类，testContext.getjdbcUtil()）
+		//try{}catch(Exception e){}
+		
 		// 日志配置初始化
 		try{
-			System.out.println("开始日志配置初始化");
-			LogConfiguration.initLog(scenario.getClass().getSimpleName(),
+			LogConfiguration.initLog(scenario.getName(),
 									 testContext.getlogRootFolderPath(),
 									 testContext.getkeepLogDay());
 			System.out.println("日志配置初始化成功");
@@ -82,10 +85,10 @@ public class Hooks {
 				byte[] screenshotAs = null;
 				screenshotAs = ((TakesScreenshot) testContext.getseleniumUtil().threadWebDriver.get()).getScreenshotAs(OutputType.BYTES);
 				scenario.embed(screenshotAs, "image/png");
+				logger.info("场景运行失败，已成功截图到测试报告中");
 			}
-			logger.info("测试报告成功嵌入失败场景的截图");
 		} catch (Exception e) {
-			logger.error("测试报告嵌入失败场景的截图时发生异常", e);
+			logger.error("场景运行失败，但截图到测试报告中时发生异常", e);
 		}
 		
 		// 关闭浏览器、关闭VNC

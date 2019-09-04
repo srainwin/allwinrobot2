@@ -6,6 +6,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/config/baseContext.properties=UTF-8
 encoding//src/main/resources/config/customContext.properties=UTF-8
+encoding//src/main/resources/config/database.properties=UTF-8
 encoding//src/main/resources/config/driver.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8

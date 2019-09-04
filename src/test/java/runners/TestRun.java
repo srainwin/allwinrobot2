@@ -14,7 +14,8 @@ import cucumber.api.CucumberOptions;
 				"junit:target/result/cucumber-reports/CucumberTestReport.xml",	//生成xml报告，供第三方工具转换可视格式
 				"rerun:target/result/rerun.txt"	//生成失败场景需重跑的文件
 		},
-		tags = {"@featureGroup1","@scenarioGroup0,@scenarioGroup1,@scenarioGroup2"}
+//		tags = {"@featureGroup1 and (@scenarioGroup0 or @scenarioGroup1 or @scenarioGroup2)"}
+		tags = {"@scenarioGroup0"}
 )
 
 public class TestRun extends BaseRun{

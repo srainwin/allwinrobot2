@@ -19,7 +19,8 @@ public class TestExample2 {
 	}
 	
 	@Given("^Open Application and Enter url2$")
-	public void open_Application_and_Enter_url2() {
+	public void open_Application_and_Enter_url2() throws InterruptedException {
+//		Thread.sleep(2000);
 		System.out.println("Open Application and Enter url2");
 		System.out.println(browserName);
 	}
@@ -32,7 +33,7 @@ public class TestExample2 {
 		testContext.getcustomContext().addCoverContext("username", "Allwin3");
 		System.out.println(testContext.getcustomContext().getContext("username"));
 		testContext.getcustomContext().delContext("username");
-		testContext.getcustomContext().addContext("123", "123");
+		testContext.getcustomContext().addCoverContext("123", "123");
 	}
 
 	@When("^enter password2$")

@@ -8,6 +8,7 @@ import cucumber.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import database.JdbcUtil;
 
 public class TestExample {
 	TestContext testContext;
@@ -19,7 +20,13 @@ public class TestExample {
 	}
 	
 	@Given("^Open Application and Enter url$")
-	public void open_Application_and_Enter_url() {
+	public void open_Application_and_Enter_url() throws InterruptedException {
+		JdbcUtil j = new JdbcUtil();
+		System.out.println(j.excuteQuery("select id,name from jdbctab1", "id"));
+		j.closeConn();
+		
+		
+//		Thread.sleep(2000);
 		System.out.println("Open Application and Enter url");
 		
 		browserName = "firefox";
@@ -61,7 +68,8 @@ public class TestExample {
 	}
 	
 	@Given("^Open Application and Enter url1$")
-	public void open_Application_and_Enter_url1() {
+	public void open_Application_and_Enter_url1() throws InterruptedException {
+//		Thread.sleep(2000);
 		System.out.println("Open Application and Enter url1");
 		
 		System.out.println(browserName);
