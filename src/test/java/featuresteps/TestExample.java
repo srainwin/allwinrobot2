@@ -1,13 +1,13 @@
-package steps;
+package featuresteps;
 
 import java.util.Random;
 
 import org.testng.Assert;
 
 import cucumber.TestContext;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import cucumber.api.java.zh_cn.假如;
+import cucumber.api.java.zh_cn.当;
+import cucumber.api.java.zh_cn.那么;
 import database.JdbcUtil;
 
 public class TestExample {
@@ -19,8 +19,9 @@ public class TestExample {
 		browserName = testContext.getbrowserName();
 	}
 	
-	@Given("^Open Application and Enter url$")
-	public void open_Application_and_Enter_url() throws InterruptedException {
+	@假如("^打开软件并输入地址\"(.*)\"和\"(.*)\"和\"(.*)\"$")
+	public void open_Application_and_Enter_url(String username,String password,String tips) throws InterruptedException {
+		System.out.println(username+password+tips);
 		JdbcUtil j = new JdbcUtil();
 		System.out.println(j.excuteQuery("select id,name from jdbctab1", "id"));
 		j.closeConn();
@@ -33,11 +34,11 @@ public class TestExample {
 		System.out.println(browserName);
 		System.out.println(testContext.getbrowserName());
 		
-		String username = "Allwin";
-		testContext.getcustomContext().addContext("username", username);
+		String username2 = "Allwin";
+		testContext.getcustomContext().addContext("username", username2);
 	}
 
-	@When("^enter username$")
+	@当("^enter username$")
 	public void enter_username() {
 		System.out.println("enter username");
 		System.out.println(browserName);
@@ -46,7 +47,7 @@ public class TestExample {
 		
 	}
 
-	@When("^enter password$")
+	@当("^enter password$")
 	public void enter_password() {
 		System.out.println("enter password");
 		
@@ -62,12 +63,12 @@ public class TestExample {
         Assert.assertEquals(1, val);
 	}
 
-	@Then("^verify Msg$")
+	@那么("^verify Msg$")
 	public void verify_Msg() {
 		System.out.println("verify Msg");
 	}
 	
-	@Given("^Open Application and Enter url1$")
+	@假如("^Open Application and Enter url1$")
 	public void open_Application_and_Enter_url1() throws InterruptedException {
 //		Thread.sleep(2000);
 		System.out.println("Open Application and Enter url1");
@@ -76,14 +77,14 @@ public class TestExample {
 		System.out.println(testContext.getbrowserName());
 	}
 
-	@When("^enter username1$")
+	@当("^enter username1$")
 	public void enter_username1() {
 		System.out.println("enter username1");
 		
 		System.out.println(testContext.getcustomContext().getContext("username"));
 	}
 
-	@When("^enter password1$")
+	@当("^enter password1$")
 	public void enter_password1() {
 		System.out.println("enter password1");
 		int min = 1;
@@ -93,7 +94,7 @@ public class TestExample {
         Assert.assertEquals(1, val);
 	}
 
-	@Then("^verify Msg1$")
+	@那么("^verify Msg1$")
 	public void verify_Msg1() {
 		System.out.println("verify Msg1");
 	}

@@ -170,7 +170,7 @@
 	                    <allure.link.issue.pattern>https://example.org/browse/{}</allure.link.issue.pattern>
 	                    <allure.link.tms.pattern>https://example.org/browse/{}</allure.link.tms.pattern>
 	                    <!-- 指定并行执行线程数 -->
-	                    <dataproviderthreadcount>2</dataproviderthreadcount>
+	                    <dataproviderthreadcount>1</dataproviderthreadcount>
                 	</systemPropertyVariables>
 				</configuration>
 				<dependencies>

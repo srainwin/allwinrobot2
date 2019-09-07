@@ -70,7 +70,7 @@ public class LogConfiguration {
 	 */
 	private static void delFile(File file){
 		try{
-		// File只能删文件和非空目录，非空目录要递归深度删除
+		// File只能删文件和空目录，非空目录要递归深度删除
 		if (file.isFile()) {
 			file.delete();// 文件删除
 		} else {

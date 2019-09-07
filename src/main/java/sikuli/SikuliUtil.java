@@ -41,7 +41,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("启动本地服务器屏幕图像识别器发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("启动本地服务器屏幕图像识别器发生异常");
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("启动远程服务器屏幕图像识别器发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("启动远程服务器屏幕图像识别器发生异常");
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("关闭sikuli vnc连接发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("关闭sikuli vnc连接发生异常");
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("检查图像是否存在发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查图像是否存在发生异常");
 			return false;
 		}
 	}
@@ -132,7 +132,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("检查图像1是否包含子图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查图像1是否包含子图像发生异常");
 		}
 		return boo;
 	}
@@ -149,7 +149,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取图像中内部图像的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取图像中内部图像的区域发生异常");
 		}
 		return region;
 	}
@@ -166,7 +166,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("等待图像出现发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("等待图像出现发生异常");
 		}
 		return pattern;
 	}
@@ -183,12 +183,12 @@ public class SikuliUtil {
 			}else{
 				logger.info("等待图像超时仍未消失");
 				//由testng的失败断言来控制用例运行是否失败
-				Assert.fail();
+				Assert.fail("等待图像超时仍未消失");
 			}
 		}catch(Exception e){
 			logger.error("等待图像消失发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("等待图像消失发生异常");
 		}
 		return pattern;
 	}
@@ -209,7 +209,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("查找图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找图像发生异常");
 		}
 		return matchImage;
 	}
@@ -228,11 +228,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到多个相同图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到多个相同图像");
 		}catch(Exception e){
 			logger.error("查找多个相同图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找多个相同图像发生异常");
 		}
 		return matchImages;
 	}
@@ -246,7 +246,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("查找文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找文字发生异常");
 		}
 		return matchText;
 	}
@@ -260,7 +260,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("查找文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找文字发生异常");
 		}
 		return matchTexts;
 	}
@@ -275,7 +275,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("查找文字并移动鼠标到文字那异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找文字并移动鼠标到文字那异常");
 		}
 		return matchText;
 	}
@@ -290,7 +290,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取图像的上方指定高度的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取图像的上方指定高度的区域发生异常");
 		}
 		return region;
 	}
@@ -305,7 +305,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取图像的下方指定高度的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取图像的下方指定高度的区域发生异常");
 		}
 		return region;
 	}
@@ -320,7 +320,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取图像的左方指定宽度的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取图像的左方指定宽度的区域发生异常");
 		}
 		return region;
 	}
@@ -335,7 +335,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取图像的右方指定宽度的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取图像的右方指定宽度的区域发生异常");
 		}
 		return region;
 	}
@@ -349,7 +349,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("截取区域图片发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("截取区域图片发生异常");
 		}
 		return imagepath;
 	}
@@ -363,7 +363,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("截取区域图片发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("截取区域图片发生异常");
 		}
 		return imagepath;
 	}
@@ -385,7 +385,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取两个图片TopLeft之间的区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取两个图片TopLeft之间的区域发生异常");
 		}
 		return region;
 	}
@@ -409,7 +409,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("获取两个图片TopLeft之间的区域图片发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取两个图片TopLeft之间的区域图片发生异常");
 		}
 		return newImagename;
 	}
@@ -431,7 +431,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("指定区域(x,y,w,h)坐标进行图像文字识别发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("指定区域(x,y,w,h)坐标进行图像文字识别发生异常");
 		}
 		return text;
 	}
@@ -452,7 +452,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("指定图像进行图像识别文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("指定图像进行图像识别文字发生异常");
 		}
 		return text;
 	}
@@ -467,7 +467,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("打开本地应用程序发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("打开本地应用程序发生异常");
 		}
 		return app;
 	}
@@ -480,7 +480,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("关闭本地应用程序发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("关闭本地应用程序发生异常");
 		}
 	}
 	
@@ -493,7 +493,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("切换本地应用程序发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换本地应用程序发生异常");
 		}
 		return app2;
 	}
@@ -506,11 +506,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要移动到的区域 ",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要移动到的区域 ");
 		}catch(Exception e){
 			logger.error("鼠标移动到区域 发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标移动到区域 发生异常");
 		}
 		return region;
 	}
@@ -525,11 +525,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要移动到的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要移动到的图像");
 		}catch(Exception e){
 			logger.error("鼠标移动到图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标移动到图像发生异常");
 		}
 		return pattern;
 	}
@@ -544,11 +544,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要移动到的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要移动到的图像");
 		}catch(Exception e){
 			logger.error("鼠标移动到图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标移动到图像发生异常");
 		}
 		return pattern;
 	}
@@ -561,11 +561,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要点击的区域",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要点击的区域");
 		}catch(Exception e){
 			logger.error("鼠标点击区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标点击区域发生异常");
 		}
 	}
 	
@@ -579,11 +579,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要点击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要点击的图像");
 		}catch(Exception e){
 			logger.error("鼠标点击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标点击图像发生异常");
 		}
 	}
 	
@@ -597,11 +597,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要点击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要点击的图像");
 		}catch(Exception e){
 			logger.error("鼠标点击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标点击图像发生异常");
 		}
 	}
 	
@@ -616,7 +616,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标延迟点击区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标延迟点击区域发生异常");
 		}
 	}
 	
@@ -631,7 +631,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标延迟点击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标延迟点击图像发生异常");
 		}
 	}
 	
@@ -646,7 +646,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标延迟点击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标延迟点击图像发生异常");
 		}
 	}
 	
@@ -658,11 +658,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要双击的区域",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要双击的区域");
 		}catch(Exception e){
 			logger.error("鼠标双击区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标双击区域发生异常");
 		}
 	}
 	
@@ -675,11 +675,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要双击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要双击的图像");
 		}catch(Exception e){
 			logger.error("鼠标双击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标双击图像发生异常");
 		}
 	}
 	
@@ -693,11 +693,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要双击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要双击的图像");
 		}catch(Exception e){
 			logger.error("鼠标双击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标双击图像发生异常");
 		}
 	}
 	
@@ -709,11 +709,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要右击的区域",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要右击的区域");
 		}catch(Exception e){
 			logger.error("鼠标右击区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击区域发生异常");
 		}
 	}
 	
@@ -726,11 +726,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要右击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要右击的图像");
 		}catch(Exception e){
 			logger.error("鼠标右击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击图像发生异常");
 		}
 	}
 	
@@ -744,11 +744,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要右击的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要右击的图像");
 		}catch(Exception e){
 			logger.error("鼠标右击图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击图像发生异常");
 		}
 	}
 	
@@ -766,7 +766,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标点击区域达到指定时间后再释放左键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标点击区域达到指定时间后再释放左键发生异常");
 		}
 	}
 	
@@ -784,7 +784,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标点击图像达到指定时间后再释放左键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标点击图像达到指定时间后再释放左键发生异常");
 		}
 	}
 	
@@ -802,7 +802,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标右击区域达到指定时间后再释放右键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击区域达到指定时间后再释放右键发生异常");
 		}
 	}
 	
@@ -820,7 +820,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标右击图像达到指定时间后再释放右键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击图像达到指定时间后再释放右键发生异常");
 		}
 	}
 
@@ -838,7 +838,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标中击区域达到指定时间后再释放中键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标中击区域达到指定时间后再释放中键发生异常");
 		}
 	}
 
@@ -856,7 +856,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标中击图像达到指定时间后再释放中键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标中击图像达到指定时间后再释放中键发生异常");
 		}
 	}
 	
@@ -868,7 +868,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标中轮向上滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标中轮向上滚动指定次数发生异常");
 		}
 	}
 	
@@ -880,7 +880,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标在滚动条区域中轮向上滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标在滚动条区域中轮向上滚动指定次数发生异常");
 		}
 	}
 	
@@ -894,7 +894,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标在滚动条图像中轮向上滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标在滚动条图像中轮向上滚动指定次数发生异常");
 		}
 	}
 	
@@ -906,7 +906,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标中轮向下滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标中轮向下滚动指定次数发生异常");
 		}
 	}
 	
@@ -918,7 +918,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标在滚动条区域中轮向下滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标在滚动条区域中轮向下滚动指定次数发生异常");
 		}
 	}
 	
@@ -932,7 +932,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标在滚动条图像中轮向下滚动指定次数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标在滚动条图像中轮向下滚动指定次数发生异常");
 		}
 	}
 	
@@ -944,7 +944,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标悬停在区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标悬停在区域发生异常");
 		}
 	}
 	
@@ -957,11 +957,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要悬停在的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要悬停在的图像");
 		}catch(Exception e){
 			logger.error("鼠标悬停在图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标悬停在图像发生异常");
 		}
 	}
 	
@@ -975,11 +975,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要悬停在的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要悬停在的图像");
 		}catch(Exception e){
 			logger.error("鼠标悬停在图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标悬停在图像发生异常");
 		}
 	}
 	
@@ -991,7 +991,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("鼠标拖拽区域发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标拖拽区域发生异常");
 		}
 	}
 	
@@ -1005,11 +1005,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要拖拽的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要拖拽的图像");
 		}catch(Exception e){
 			logger.error("鼠标拖拽图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标拖拽图像发生异常");
 		}
 	}
 	
@@ -1025,11 +1025,11 @@ public class SikuliUtil {
 		}catch(FindFailed e){
 			logger.error("查找不到鼠标要拖拽的图像",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("查找不到鼠标要拖拽的图像");
 		}catch(Exception e){
 			logger.error("鼠标拖拽图像发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标拖拽图像发生异常");
 		}
 	}
 	
@@ -1041,7 +1041,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中写文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中写文字发生异常");
 		}
 	}
 	
@@ -1054,7 +1054,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中写文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中写文字发生异常");
 		}
 	}
 	
@@ -1066,7 +1066,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中输入文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中输入文字发生异常");
 		}
 	}
 	
@@ -1079,7 +1079,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中输入文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中输入文字发生异常");
 		}
 	}
 	
@@ -1092,7 +1092,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中粘贴文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中粘贴文字发生异常");
 		}
 	}
 	
@@ -1105,7 +1105,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中粘贴文字发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中粘贴文字发生异常");
 		}
 	}
 	
@@ -1117,7 +1117,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中输入CTRL+KEY组合按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中输入CTRL+KEY组合按键发生异常");
 		}
 	}
 	
@@ -1130,7 +1130,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中输入CTRL+KEY组合按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中输入CTRL+KEY组合按键发生异常");
 		}
 	}
 	
@@ -1142,7 +1142,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在屏幕中输入单个KEY按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在屏幕中输入单个KEY按键发生异常");
 		}
 	}
 	
@@ -1154,7 +1154,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中输入单个KEY按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中输入单个KEY按键发生异常");
 		}
 	}
 	
@@ -1167,7 +1167,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中输入单个KEY按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中输入单个KEY按键发生异常");
 		}
 	}
 	
@@ -1179,7 +1179,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在屏幕中输入任意KEY1+KEY2组合按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在屏幕中输入任意KEY1+KEY2组合按键发生异常");
 		}
 	}
 	
@@ -1191,7 +1191,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在区域中输入任意KEY1+KEY2组合按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在区域中输入任意KEY1+KEY2组合按键发生异常");
 		}
 	}
 	
@@ -1204,7 +1204,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在图像中输入任意KEY1+KEY2组合按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在图像中输入任意KEY1+KEY2组合按键发生异常");
 		}
 	}
 	
@@ -1223,7 +1223,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("键盘在屏幕中按下KEY1+KEY2+KEY3三键组合发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘在屏幕中按下KEY1+KEY2+KEY3三键组合发生异常");
 		}
 	}
 	
@@ -1240,7 +1240,7 @@ public class SikuliUtil {
 		}catch(Exception e){
 			logger.error("按着某个键一定时间后再释放按键发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("按着某个键一定时间后再释放按键发生异常");
 		}
 	}
 	
@@ -1283,7 +1283,7 @@ public class SikuliUtil {
 			//由testng的失败断言来控制用例运行是否失败
 			(screen == null? vncscreen:screen).type(Key.F4, KeyModifier.ALT);
 			(screen == null? vncscreen:screen).type(Key.ENTER);
-			Assert.fail();
+			Assert.fail("复制excel首行某字段下方的单元格内容并粘贴到目标图像处发生异常");
 		}
 	}
 

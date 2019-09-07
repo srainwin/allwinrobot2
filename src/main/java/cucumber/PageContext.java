@@ -25,7 +25,7 @@ public class PageContext {
 	 * @param jsonPagefileName
 	 */
 	public void setPagefile(String jsonPagefileName){
-		jsonPageFile = new File(System.getProperty("user.dir") + "/src/main/java/com/demo/pages/" + jsonPagefileName);
+		jsonPageFile = new File(System.getProperty("user.dir") + "/src/test/java/pages/" + jsonPagefileName);
 		if( !jsonPageFile.exists() ){
 			logger.warn(jsonPagefileName + "文件不存在！！！");
 		}

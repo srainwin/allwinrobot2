@@ -59,7 +59,7 @@ public class JdbcUtil {
 			// 加载数据库驱动
 			Class.forName(jdbc_driver);
 			// 创建数据库连接（mysql）
-			String url = jdbc_url + jdbc_db + "?&useUnicode=true&characterEncoding=utf-8";
+			String url = jdbc_url + jdbc_db + "?&useUnicode=true&characterEncoding=utf-8?useSSL=false";
 			conn = DriverManager.getConnection(url, jdbc_name, jdbc_password);
 			// 设置事务自动提交
 			conn.setAutoCommit(true);

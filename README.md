@@ -57,7 +57,7 @@ jdbc连接数据库操作
 * src/test/java  
   * pages：json形式的页面元素定位集  
   * features：cucumber-feature形式的业务故事集  
-  * steps：cucumber-step形式的业务故事代码实现集  
+  * featuresteps：cucumber-step形式的业务故事代码实现集，feature文件名字与step脚本名要相同  
   * runners  
   	* BaseRun.java：基础运行的run，含testng的Before和After，每个run必须继承此类  
   	* TestRun.java：测试运行的run  
@@ -128,7 +128,9 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 
 ## 附：cucumber与BDD指导
 (1)不管同一个feature还是多个feature，scenario里的步骤定义都不允许重复，若非要重复的话需要把步骤定义的函数名改为不重复，否则出现cucumber.runtime.DuplicateStepDefinitionException异常  
+
 (2)产品迭代增删改测试场景时记得备份feature和step文件，也可以不删除旧场景，但要用tag标记场景以确定运行集  
+
 (3)feature文件中英文关键字对照表，feature首行加#language: zh-CN  
 | feature          | "功能"  
 | background       | "背景"  
@@ -145,16 +147,44 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 | then (code)      | "那么"  
 | and (code)       | "而且", "并且", "同时"  
 | but (code)       | "但是"  
-(4)关键字解释:  
+
+(4)feature文件关键字解释:  
 Feature：用来描述我们需要测试的功能。  
 background：用来描述每个测试场景的背景，相当于当前feature中每个场景的前置条件，background与Scenario同样有Given、When等描述，但前置条件不要过于复杂。  
-Scenario: 用来描述测试场景，描述中的数据用引号"col"括起来，数据映射到step脚本描述用\"(.*)\"正则表达式与脚本形参col；或者描述下方用数据表|colvalue|，数据映射到step脚本形参DataTable类型，且脚本内容用DataTable类型参数的raw()方法得数据表；或者描述下方用数据地图|col|，数据映射到step脚本形参DataTable类型，且脚本内容用DataTable类型参数的asMaps(col类型.class)方法得数据地图；数据表/地图缺点是自行写循环语句执行多行数据。  
-scenario_outline: 也用来描述测试场景，但搭配数据必须用example:|col|，描述中的数据用引号加尖括号"<col>"括起来，数据映射到step脚本描述也用\"(.*)\"正则表达式与脚本形参col；example好处是多行数据都会循环场景执行。  
+Scenario: 用来描述测试场景。  
+scenario_outline: 也用来描述测试场景，但必须带有example关键字做测试数据。  
 Given： 当前场景的前置条件。  
 When、and、but: 描述测试步骤触发条件。  
 Then: 对步骤结果断言。  
-(5)行为驱动开发（BDD）是一种软件开发的协作方法，可以弥合业务和IT之间的通信差距。BDD可帮助团队更准确地沟通需求，及早发现缺陷并生成随时间保持可维护的软件。它可以帮助团队创建整个团队可以理解的业务需求。指定的例子揭示了人们可能甚至不知道的误解。实践BDD的团队专注于预防缺陷而不是发现缺陷。这样可以减少返工，缩短产品上市时间。  
-(6)您的Cucumber功能应该推动您的实施，而不是反映它。这意味着应该在实现该功能的代码之前编写Cucumber功能。通俗的说就是在产品代码开发前就要思考测试场景/用例，并且是产品经理、需求经理、开发人员、测试人员和客户都要以研讨会形式参与产品使用场景的思考发掘，最终形成cucumber的feature故事集并反复评审。这是要不同于以往只是测试人员在写测试用例甚至无暇顾及写用例，单纯的经验与探索性测试不足以保障产品质量。  
-(7)BDD教程参考官网介绍：  
+
+(5)feature文件添加测试数据形式有：  
+描述中带引号传数、example例子和DataTable数据表，其中DataTable可用raw()和asMap()方法在脚本中获取数据表数据，另外example会循环场景跑多行数据，而数据表要在脚本中自行编写循环取多行数据跑。  
+
+(6)featurestep脚本步骤描述与参数：  
+描述中可用正则表达式或黄瓜表达式匹配参数（测试数据）  
+
+正则表达式如下：  
+用^$符号括起步骤描述，中间通常用\"(.*)\"匹配任意参数，参数为(String dataname)  
+举例：  
+@Given("^input username is \"(.*)\"$")  
+public void input_username_is (String dataname) {}  
+
+黄瓜表达式如下：  
+{int}	匹配整数，例如71或-19。  
+{float}	匹配浮动，例如3.6，.8或-9.2。  
+{word}	匹配没有空格的单词，例如banana（但不是banana split）  
+{string}	匹配单引号或双引号字符串，例如"banana split"或'banana split'（但不是banana split）。仅提取引号之间的文本。引号本身被丢弃。  
+{} 	匹配任何东西（/.*/）。  
+举例：  
+@Given("input username is {string}")  
+public void input_username_is (String string) {}  
+
+(7)cucumber是按feature文件名字母数字顺序执行的，如果功能之间有依赖的话请设计好feature文件名，行业共识建议feature之间尽量解耦，要求每个场景都是独立可运行的。  
+
+(8)行为驱动开发（BDD）是一种软件开发的协作方法，可以弥合业务和IT之间的通信差距。BDD可帮助团队更准确地沟通需求，及早发现缺陷并生成随时间保持可维护的软件。它可以帮助团队创建整个团队可以理解的业务需求。指定的例子揭示了人们可能甚至不知道的误解。实践BDD的团队专注于预防缺陷而不是发现缺陷。这样可以减少返工，缩短产品上市时间。  
+
+(9)您的Cucumber功能应该推动您的实施，而不是反映它。这意味着应该在实现该功能的代码之前编写Cucumber功能。通俗的说就是在产品代码开发前就要思考测试场景/用例，并且是产品经理、需求经理、开发人员、测试人员和客户都要以研讨会形式参与产品使用场景的思考发掘，最终形成cucumber的feature故事集并反复评审。这是要不同于以往只是测试人员在写测试用例甚至无暇顾及写用例，单纯的经验与探索性测试不足以保障产品质量。  
+
+(10)BDD教程参考官网介绍：  
 https://cucumber.io/docs/guides/bdd-tutorial/  
 https://cucumber.io/docs/bdd/who-does-what/  

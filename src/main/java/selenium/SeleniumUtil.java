@@ -68,7 +68,7 @@ public class SeleniumUtil {
 			// 然后在每个[@test用例中]或者[@test用例中调用的封装方法里]使用threadLocalWebDriver.get()来获取单个线程绑定的driver
 		}else{
 			logger.warn("testng.xml的isRemote参数值填写有误，请输入true或false!");
-			Assert.fail();
+			Assert.fail("testng.xml的isRemote参数值填写有误，请输入true或false!");
 		}
 		
 		try {
@@ -79,7 +79,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("启动" + browserName + "浏览器发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("启动" + browserName + "浏览器发生异常");
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("最大化浏览器失败", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("最大化浏览器失败");
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("全屏浏览器失败", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("全屏浏览器失败");
 		}
 	}
 
@@ -133,7 +133,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("设置浏览器窗口大小失败", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("设置浏览器窗口大小失败");
 		}
 
 	}
@@ -148,7 +148,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获得屏幕的分辨率-宽和高 发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获得屏幕的分辨率-宽和高 发生异常");
 		}
 		return wh;
 	}
@@ -168,12 +168,12 @@ public class SeleniumUtil {
 			logger.info("打印状态：" + status);
 			if(status != "complete"){
 				//由testng的失败断言来控制用例运行是否失败
-				Assert.fail();
+				Assert.fail("打开测试页面异常");
 			}
 		} catch (Exception e) {
 			logger.error("打开测试页面异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("打开测试页面异常");
 		}
 	}
 
@@ -188,7 +188,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("退出浏览器异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("退出浏览器异常");
 		}
 	}
 
@@ -202,7 +202,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("关闭网页异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("关闭网页异常");
 		}
 	}
 
@@ -216,7 +216,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("刷新网页异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("刷新网页异常");
 		}
 	}
 
@@ -230,7 +230,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("回退上一个网页异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("回退上一个网页异常");
 		}
 	}
 
@@ -244,7 +244,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("重返网页异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("重返网页异常");
 		}
 	}
 
@@ -265,7 +265,7 @@ public class SeleniumUtil {
             } catch (Exception e) {
             	logger.error("重建cookies文件发生异常",e);
     			//由testng的失败断言来控制用例运行是否失败
-    			Assert.fail();
+    			Assert.fail("重建cookies文件发生异常");
             }
         }
 		try {
@@ -291,7 +291,7 @@ public class SeleniumUtil {
         } catch (Exception e) {
         	logger.error("获取网站cookies并写入到cookies文件中发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取网站cookies并写入到cookies文件中发生异常");
         }
 		
 	}
@@ -325,7 +325,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
         	logger.error("给浏览器添加cookies发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("给浏览器添加cookies发生异常");
 		}
 	}
 	
@@ -339,7 +339,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
         	logger.error("给浏览器清除cookies发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("给浏览器清除cookies发生异常");
 		}
 	}
 
@@ -356,7 +356,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("定位元素异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("定位元素异常");
 		}
 		return element;
 	}
@@ -377,7 +377,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("定位元素异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("定位元素异常");
 		}
 		return elements;
 	}
@@ -413,11 +413,11 @@ public class SeleniumUtil {
 		} catch (TimeoutException e) {
 			logger.error("超时!! " + timeOutInSeconds + " 秒之后还没找到元素 [" + byElement + "]", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("超时!! " + timeOutInSeconds + " 秒之后还没找到元素 [" + byElement + "]");
 		} catch (Exception e) {
 			logger.error("给定的时间内定位查找元素异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("给定的时间内定位查找元素异常");
 		}
 		return element;
 	}
@@ -430,11 +430,11 @@ public class SeleniumUtil {
 		} catch (NoSuchElementException e) {
 			logger.error("超时未找到元素", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("超时未找到元素");
 		} catch (Exception e) {
 			logger.error("未能等待元素定位出现，发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("未能等待元素定位出现，发生异常");
 		}
 	}
 
@@ -450,7 +450,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("超时未能完全加载页面", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("超时未能完全加载页面");
 		}
 	}
 
@@ -462,7 +462,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("超时未能异步执行脚本", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("超时未能异步执行脚本");
 		}
 	}
 
@@ -481,7 +481,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("暂停执行当前用例无效，发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("暂停执行当前用例无效，发生异常");
 		}
 	}
 
@@ -496,7 +496,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("获取页面标题异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取页面标题异常");
 		}
 		return title;
 	}
@@ -512,7 +512,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("获取元素的文本异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取元素的文本异常");
 		}
 		return text;
 	}
@@ -528,7 +528,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("获取元素的属性值发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取元素的属性值发生异常");
 		}
 		return attributeText;
 	}
@@ -543,7 +543,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("清除元素 [" + byElement + "] 上的内容异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("清除元素 [" + byElement + "] 上的内容异常");
 		}
 	}
 
@@ -557,11 +557,11 @@ public class SeleniumUtil {
 		} catch (StaleElementReferenceException e) {
 			logger.error("你点击的元素:[" + byElement + "]不再存在!", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("你点击的元素:[" + byElement + "]不再存在!");
 		} catch (Exception e) {
 			logger.error("点击元素 [" + byElement + "]发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("点击元素 [" + byElement + "]发生异常");
 		}
 	}
 
@@ -574,7 +574,7 @@ public class SeleniumUtil {
 			if (System.currentTimeMillis() - startTime > timeOut) {
 				logger.error(byElement + "元素不可点击", e);
 				//由testng的失败断言来控制用例运行是否失败
-				Assert.fail();
+				Assert.fail(byElement + "元素不可点击");
 			} else {
 				logger.warn(byElement + "元素不可点击, 重试中");
 				Thread.sleep(500);
@@ -593,7 +593,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("输入 [" + sendkeys + "] 到 元素[" + byElement + "]异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("输入 [" + sendkeys + "] 到 元素[" + byElement + "]异常");
 		}
 	}
 
@@ -607,7 +607,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("表单提交发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("表单提交发生异常");
 		}
 	}
 
@@ -622,7 +622,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("键盘操作" + key.name() + "+" + keyword + "异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("键盘操作" + key.name() + "+" + keyword + "异常");
 		}
 	}
 
@@ -650,7 +650,7 @@ public class SeleniumUtil {
 			if (System.currentTimeMillis() > endTime) {
 				logger.warn("已超时，页面仍未能切换到提示框窗口");
 				//由testng的失败断言来控制用例运行是否失败
-				Assert.fail();
+				Assert.fail("已超时，页面仍未能切换到提示框窗口");
 				break;
 			}
 		}
@@ -667,7 +667,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("切换frame发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换frame发生异常");
 		}
 	}
 
@@ -681,7 +681,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("切换frame发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换frame发生异常");
 		}
 	}
 
@@ -696,7 +696,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("切换frame发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换frame发生异常");
 		}
 	}
 
@@ -710,7 +710,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("跳出frame发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("跳出frame发生异常");
 		}
 	}
 
@@ -725,7 +725,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获取窗口标题发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取窗口标题发生异常");
 		}
 		return title;
 	}
@@ -739,9 +739,9 @@ public class SeleniumUtil {
 			handle = threadWebDriver.get().getWindowHandle();
 			logger.info("成功获取所有窗口句柄");
 		} catch (Exception e) {
-			logger.error(" 获取所有窗口句柄发生异常",e);
+			logger.error("获取所有窗口句柄发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取所有窗口句柄发生异常");
 		}
 		return handle;
 	}
@@ -755,9 +755,9 @@ public class SeleniumUtil {
 			handles = threadWebDriver.get().getWindowHandles();
 			logger.info("成功获取所有窗口句柄");
 		} catch (Exception e) {
-			logger.error(" 获取所有窗口句柄发生异常",e);
+			logger.error("获取所有窗口句柄发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取所有窗口句柄发生异常");
 		}
 		return handles;
 	}
@@ -773,7 +773,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("切换handle发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换handle发生异常");
 		}
 	}
 	
@@ -797,7 +797,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("切换另一个handle发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("切换另一个handle发生异常");
 		}
 	}
 
@@ -812,7 +812,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标左击发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标左击发生异常");
 		}
 	}
 
@@ -827,7 +827,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标右击发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标右击发生异常");
 		}
 	}
 
@@ -842,7 +842,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标双击发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标双击发生异常");
 		}
 	}
 
@@ -857,7 +857,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("移动鼠标到指定元素发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("移动鼠标到指定元素发生异常");
 		}
 	}
 
@@ -872,7 +872,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("移动鼠标到指定元素的(x,y)位置发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("移动鼠标到指定元素的(x,y)位置发生异常");
 		}
 	}
 
@@ -887,7 +887,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标拖拽source元素到target元素位置发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标拖拽source元素到target元素位置发生异常");
 		}
 	}
 
@@ -902,7 +902,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标拖拽source元素到(xOffset, yOffset)位置发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标拖拽source元素到(xOffset, yOffset)位置发生异常");
 		}
 	}
 
@@ -917,7 +917,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标悬停发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标悬停发生异常");
 		}
 	}
 
@@ -932,7 +932,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("鼠标悬停发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("鼠标悬停发生异常");
 		}
 	}
 
@@ -945,7 +945,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获得CSS value发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获得CSS value发生异常");
 		}
 		return css;
 	}
@@ -965,7 +965,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("检查元素是否可编辑发生异常", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查元素是否可编辑发生异常");
 		}
 		return isEdit;
 	}
@@ -983,7 +983,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("检查元素是否显示发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查元素是否显示发生异常");
 		}
 		return isDisplay;
 	}
@@ -1000,7 +1000,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.info("检查元素是否存在时发生异常");
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查元素是否存在时发生异常");
 			return false;
 		}
 
@@ -1019,7 +1019,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("检查CheckBox是否勾选发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("检查CheckBox是否勾选发生异常");
 		}
 		return flag;
 	}
@@ -1035,7 +1035,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("根据value选择下拉选项发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("根据value选择下拉选项发生异常");
 		}
 	}
 
@@ -1050,7 +1050,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("根据index角标选择下拉选项发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("根据index角标选择下拉选项发生异常");
 		}
 		
 	}
@@ -1066,7 +1066,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("根据文本内容选择下拉选项发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("根据文本内容选择下拉选项发生异常");
 		}
 	}
 
@@ -1082,7 +1082,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获得当前下拉的所有选项的元素定位发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获得当前下拉的所有选项的元素定位发生异常");
 		}
 		return optionsList;
 	}
@@ -1114,7 +1114,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获得输入框的值发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获得输入框的值发生异常");
 		}
 		return value;
 	}
@@ -1130,7 +1130,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获取表格的行数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取表格的行数发生异常");
 		}
 		return rowElement.size();
 	}
@@ -1149,7 +1149,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获取表格指定行的列数/字段数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取表格指定行的列数/字段数发生异常");
 		}
 		return colElement.size();
 	}
@@ -1170,7 +1170,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("获取表格指定行的列数/字段数发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("获取表格指定行的列数/字段数发生异常");
 		}
 		return celElement.getText();
 	}
@@ -1186,7 +1186,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("执行JavaScript语句：[" + js + "]发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("执行JavaScript语句：[" + js + "]发生异常");
 		}
 		return obj;
 	}
@@ -1208,7 +1208,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("执行JavaScript语句[" + js + "]异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("执行JavaScript语句[" + js + "]异常");
 		}
 		return obj;
 	}
@@ -1223,7 +1223,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("高亮元素发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("高亮元素发生异常");
 		}
 	}
 	
@@ -1239,7 +1239,7 @@ public class SeleniumUtil {
 		} catch (AssertionError e) {
 			logger.error("实际文本[" + actual + "]不包含期望文本[" + expect + "]");
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("实际文本[" + actual + "]不包含期望文本[" + expect + "]");
 		}
 	}
 
@@ -1253,7 +1253,7 @@ public class SeleniumUtil {
 		} catch (AssertionError e) {
 			logger.error("期望的文字是 [" + expected + "] 但是找到了 [" + actual + "]", e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("期望的文字是 [" + expected + "] 但是找到了 [" + actual + "]");
 		}
 	}
 
@@ -1266,7 +1266,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("断言获取元素的text是否含有指定内容发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("断言获取元素的text是否含有指定内容发生异常");
 		}
 		
 	}
@@ -1282,7 +1282,7 @@ public class SeleniumUtil {
 		}catch(Exception e){
 			logger.error("处理windows GUI的登陆弹出框发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("处理windows GUI的登陆弹出框发生异常");
 		}
 	}
 
@@ -1300,7 +1300,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("通过定位上传按钮后sendKeys()上传文件发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("通过定位上传按钮后sendKeys()上传文件发生异常");
 		}
 	}
 	
@@ -1321,7 +1321,7 @@ public class SeleniumUtil {
 		} catch (Exception e) {
 			logger.error("上传文件发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("上传文件发生异常");
 		}
 	}
 	
@@ -1342,12 +1342,12 @@ public class SeleniumUtil {
 			}else{
 				logger.warn("执行autoit脚本发生异常，异常终止脚本进程");
 				//由testng的失败断言来控制用例运行是否失败
-				Assert.fail();
+				Assert.fail("执行autoit脚本发生异常，异常终止脚本进程");
 			}
 		}catch(Exception e){
 			logger.error("执行autoit的exe脚本发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("执行autoit的exe脚本发生异常");
 		}
 	}
 	
@@ -1369,7 +1369,7 @@ public class SeleniumUtil {
         } catch (IOException e) {
         	logger.error("截图保存发生异常",e);
 			//由testng的失败断言来控制用例运行是否失败
-			Assert.fail();
+			Assert.fail("截图保存发生异常");
         }
 	}
 }

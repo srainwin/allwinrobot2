@@ -50,6 +50,7 @@ public class TestContext {
 	private String huburl;
 	private String isVNC;
 	private String vncPassword;
+	private String isCleanAllureReport;
 	
 	// page共享变量（page的上下文内容均在pages目录的json文件中，通过JsonPage）
 	private PageContext pageContext;
@@ -77,6 +78,7 @@ public class TestContext {
 		huburl = key2value("huburl");
 		isVNC = key2value("isVNC");
 		vncPassword = key2value("vncPassword");
+		isCleanAllureReport = key2value("isCleanAllureReport");
 		
 		// page共享变量，需在pages目录中json形式的page文件更改维护
 		pageContext = new PageContext();
@@ -171,6 +173,10 @@ public class TestContext {
 	
 	public String getvncPassword(){
 		return vncPassword;
+	}
+	
+	public String getisCleanAllureReport(){
+		return isCleanAllureReport;
 	}
 	
 	public CustomContext getcustomContext(){

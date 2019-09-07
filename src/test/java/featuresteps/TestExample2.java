@@ -1,4 +1,4 @@
-package steps;
+package featuresteps;
 
 import java.util.Random;
 
