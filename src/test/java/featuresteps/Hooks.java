@@ -93,7 +93,7 @@ public class Hooks {
 	}
 	
 	//loginfail场景不需要参与登陆邮箱这个before
-//	@Before(value="not @loginfail",order=3)
+	@Before(value="not @loginfail",order=3)
 	public void setUp_login(Scenario scenario) {
 		// 登陆126邮箱网站
 		try{
