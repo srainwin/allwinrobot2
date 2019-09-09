@@ -53,6 +53,8 @@ public class BaseRun extends AbstractTestNGCucumberTests {
 		// 自动化测试整体结束时删除临时cookies文件
 		deleteCookiesFile();
 		
+		// 关闭数据库连接
+		context.getjdbcUtil().closeConn();
 	}
 	
 	/**

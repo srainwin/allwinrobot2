@@ -1,5 +1,6 @@
 package featuresteps;
 
+import java.util.List;
 import java.util.Random;
 
 import org.testng.Assert;
@@ -8,6 +9,7 @@ import cucumber.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 
 public class TestExample2 {
 	TestContext testContext;
@@ -26,9 +28,14 @@ public class TestExample2 {
 	}
 
 	@When("^enter username2$")
-	public void enter_username2() {
+	public void enter_username2(DataTable dt) {
 		System.out.println("enter username2");
-
+		
+		List<List<String>> data = dt.asLists();
+		for(int i=0; i<data.size(); i++) { 
+			System.out.println(data.get(i).get(0)); 
+		}
+		
 		System.out.println(testContext.getcustomContext().getContext("username"));
 		testContext.getcustomContext().addCoverContext("username", "Allwin3");
 		System.out.println(testContext.getcustomContext().getContext("username"));

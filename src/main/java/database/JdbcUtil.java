@@ -14,14 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 /**
  * @author XWR
  * @Description 包装jdbc常规操作数据库（mysql），可用于自动化运行前清理库数据，可用于业务数据验证，等等
  */
 public class JdbcUtil {
-	public Logger logger = Logger.getLogger(JdbcUtil.class.getSimpleName());
 	private Connection conn;
 	private Statement statement;
 	
@@ -47,11 +44,14 @@ public class JdbcUtil {
 			jdbc_name = prop.getProperty("jdbc_name");
 			jdbc_password = prop.getProperty("jdbc_password");
 		} catch (FileNotFoundException e1) {
-			logger.error("数据库配置信息文件database.properties找不到！",e1);
+			System.out.println("数据库配置信息文件database.properties找不到！");
+			e1.printStackTrace();
 		} catch (IOException e2) {
-			logger.error("数据库配置信息文件database.properties读取发生IO异常！",e2);
+			System.out.println("数据库配置信息文件database.properties读取发生IO异常！");
+			e2.printStackTrace();
 		} catch (Exception e3) {
-			logger.error("数据库配置信息文件database.properties读取发生异常！",e3);
+			System.out.println("数据库配置信息文件database.properties读取发生异常！");
+			e3.printStackTrace();
 		}
 		
 		// 创建数据库连接
@@ -59,12 +59,13 @@ public class JdbcUtil {
 			// 加载数据库驱动
 			Class.forName(jdbc_driver);
 			// 创建数据库连接（mysql）
-			String url = jdbc_url + jdbc_db + "?&useUnicode=true&characterEncoding=utf-8?useSSL=false";
+			String url = jdbc_url + jdbc_db + "?&useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			conn = DriverManager.getConnection(url, jdbc_name, jdbc_password);
 			// 设置事务自动提交
 			conn.setAutoCommit(true);
 		} catch (Exception e) {
-			logger.error("数据库连接失败,发生异常！",e);
+			System.out.println("数据库连接失败,发生异常！");
+			e.printStackTrace();
 		}
 	}
 
@@ -79,12 +80,14 @@ public class JdbcUtil {
 			// 执行cud操作的sql语句，并返回影响数据的个数
 			int count = statement.executeUpdate(sql);
 			// 输出操作的处理结果
-			logger.info("成功执行create/insert/update/delete语句:" + sql + "，影响" + count + " 条数据");
+			System.out.println("成功执行create/insert/update/delete语句:" + sql + "，影响" + count + " 条数据");
 			statement.close();
 		} catch (SQLException e1) {
-			logger.error("执行create/insert/update/delete sql语句:" + sql + "失败，发生sql异常",e1);
+			System.out.println("执行create/insert/update/delete sql语句:" + sql + "失败，发生sql异常");
+			e1.printStackTrace();
 		} catch (Exception e2) {
-			logger.error("执行create/insert/update/delete sql语句:" + sql + "失败，发生异常",e2);
+			System.out.println("执行create/insert/update/delete sql语句:" + sql + "失败，发生异常");
+			e2.printStackTrace();
 		}
 	}
 
@@ -107,18 +110,20 @@ public class JdbcUtil {
 				resultlist.add(rs.getString(printColumn));
 			}
 			// 打印输出需要展示的字段值
-			logger.info("查询结果集的" + printColumn + "字段记录如下：");
+			System.out.println("查询结果集的" + printColumn + "字段记录如下：");
 			for(String raw:resultlist){
-				logger.info(printColumn + ":" + raw);
+				System.out.println(printColumn + ":" + raw);
 			}
 			rs.close();
 			statement.close();
 			
-			logger.info("成功执行select查询sql语句:" + sql);
+			System.out.println("成功执行select查询sql语句:" + sql);
 		} catch (SQLException e) {
-			logger.error("执行select查询sql语句:" + sql + "失败，发生sql异常",e);
+			System.out.println("执行select查询sql语句:" + sql + "失败，发生sql异常");
+			e.printStackTrace();
 		} catch (Exception e) {
-			logger.error("执行select查询sql语句:" + sql + "失败，发生异常",e);
+			System.out.println("执行select查询sql语句:" + sql + "失败，发生异常");
+			e.printStackTrace();
 		}
 		// 返回查询结果集
 		return resultlist;
@@ -127,16 +132,20 @@ public class JdbcUtil {
 	/**
 	 * @Description 关闭数据库连接
 	 * @param conn
+	 * @throws SQLException 
 	 */
-	public void closeConn(){
-		if(conn != null){
-			try{
+	public void closeConn() {
+		try{
+			if((conn != null) && (conn.isClosed() == false)){
 				conn.close();
-			}catch(SQLException e1){
-				logger.error("数据库关闭发生sql异常",e1);
-			}catch(Exception e2){
-				logger.error("数据库关闭发生异常",e2);
 			}
+		}catch(SQLException e1){
+			System.out.println("数据库关闭发生sql异常");
+			e1.printStackTrace();
+		}catch(Exception e2){
+			System.out.println("数据库关闭发生异常");
+			e2.printStackTrace();
 		}
+		
 	}
 }

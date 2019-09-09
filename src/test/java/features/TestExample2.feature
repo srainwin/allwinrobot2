@@ -4,5 +4,8 @@ Feature: 测试某功能
 Scenario: 测试某场景2
 Given Open Application and Enter url2
 When enter username2
+|qwe|
+|asd|
+|zxc|
 And enter password2
 Then verify Msg2
