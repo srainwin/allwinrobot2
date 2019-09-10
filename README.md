@@ -92,7 +92,7 @@ selenium-server-standalone-3.141.59.jar
 java -jar selenium-server-standalone-3.141.59.jar -role hub  
 
 (4)建立node节点连接（node机执行），然后刷新访问http://localhost:4444/grid/console  
-java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources/driver/chromedriver.exe" -Dwebdriver.gecko.driver="D:/snc/workspace2/autotestddt/src/main/resources/driver/geckodriver.exe" -jar selenium-server-standalone-3.141.59.jar -role node -host 192.168.1.101 -hub http://192.168.1.100:4444/grid/register -browser browserName=chrome,seleniumProtocol=WebDriver,maxInstances=5,platform=WINDOWS -browser browserName=firefox,seleniumProtocol=WebDriver,maxInstances=5,platform=WINDOWS  
+java -Dwebdriver.chrome.driver="D:/snc/workspace2/allwinrobot2/src/main/resources/driver/chromedriver.exe" -Dwebdriver.gecko.driver="D:/snc/workspace2/allwinrobot2/src/main/resources/driver/geckodriver.exe" -jar selenium-server-standalone-3.141.59.jar -role node -host 192.168.1.101 -hub http://192.168.1.100:4444/grid/register -browser browserName=chrome,seleniumProtocol=WebDriver,maxInstances=5,platform=WINDOWS -browser browserName=firefox,seleniumProtocol=WebDriver,maxInstances=5,platform=WINDOWS  
 
 (5)testng.xml/debug.xml填写isRemote和huburl参数值  
 
@@ -119,13 +119,13 @@ java -Dwebdriver.chrome.driver="D:/snc/workspace2/autotestddt/src/main/resources
 
 (8)sikuli输入文字时注意当前输入法的影响  
 
-(9)vnc时paste方法输入中文经常会乱码，不稳定，已向作者提出问题未能解决  
+(9)sikuli的type方法只能输入英文，输入中文用paste方法，但vnc时paste方法输入中文经常会乱码，不稳定，已向作者提出问题未能解决  
 
-(10)若vnc远程机是node节点而不是hub节点，则paste方法输入的是系统原来粘贴板的内容，已向作者提出问题，但作者回复表示无能为力（I have no idea and no experience with VNC, sorry.）  
+(10)若vnc远程机是node节点而不是本地hub节点，则paste方法输入的是系统原来粘贴板的内容，已向作者提出问题，但作者回复表示无能为力（I have no idea and no experience with VNC, sorry.）  
 
 (11)鉴于8、9、10三点问题的严重性，建议测试数据输入需求均使用英文，否则sikuli vnc分布式无法处理  
 
-(12)建议需要使用图像识别功能的用例单独一个testng.xml测试套件在本地运行而不用远程vnc  
+(12)建议需要使用图像识别功能但有涉及中文输入的用例单独一个testng.xml测试套件在本地运行而不用远程vnc  
 
 ## allure测试报告使用说明
 (1)测试脚本运行后，allure只会产生一个allure-result目录文件，该目录文件是不能直接查看报告的  

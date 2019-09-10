@@ -15,8 +15,7 @@ import cucumber.api.CucumberOptions;
 				"rerun:target/result/rerun.txt"	//生成失败场景需重跑的文件
 		},
 		tags = {	//@标签名，多个标签用and、or、not和()组合
-//				"@login or @logout or @writeLetter"
-				"@writeLetter"
+				"@login or @logout or @writeLetter"
 		}
 )
 

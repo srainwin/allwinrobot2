@@ -41,7 +41,8 @@ public class Mail004_WriteLetter {
 		String image = sikuliUtil.pickOneImage(pageContext.getImageLocator("addressee1"),pageContext.getImageLocator("addressee2"));
 		Region region = sikuliUtil.getImageRight(image, 2, 20);
 		String addressee = datatable.asMaps().get(0).get("addressee");
-		sikuliUtil.keyboardPasteTextRegion(region, addressee);
+//		sikuliUtil.keyboardPasteTextRegion(region, addressee);
+		sikuliUtil.keyboardTypeTextRegion(region, addressee);
 	}
 
 	@当("^填写主题$")
@@ -50,7 +51,8 @@ public class Mail004_WriteLetter {
 		String image = sikuliUtil.pickOneImage(pageContext.getImageLocator("theme1"),pageContext.getImageLocator("theme2"));
 		Region region = sikuliUtil.getImageRight(image, 2, 20);
 		String theme = datatable.asMaps().get(0).get("theme");
-		sikuliUtil.keyboardPasteTextRegion(region, theme);
+//		sikuliUtil.keyboardPasteTextRegion(region, theme);
+		sikuliUtil.keyboardTypeTextRegion(region, theme);
 	}
 
 	@当("^关闭附件提示$")

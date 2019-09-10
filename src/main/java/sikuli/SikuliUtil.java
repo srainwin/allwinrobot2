@@ -1058,7 +1058,7 @@ public class SikuliUtil {
 		}
 	}
 	
-	/** 键盘在区域中输入文字（区域前提是可输入框） */
+	/** 键盘在区域中输入英文文字（区域前提是可输入框） */
 	public void keyboardTypeTextRegion(Region region, String text){
 		try{
 			(screen == null? vncscreen:screen).type(region,text);
@@ -1070,7 +1070,7 @@ public class SikuliUtil {
 		}
 	}
 	
-	/** 键盘在图像中输入文字（图像前提是可输入框） */
+	/** 键盘在图像中输入英文文字（图像前提是可输入框） */
 	public void keyboardTypeTextImages(String imagename, String text, double imageTimeoutSecond){
 		try{
 			waitImage(imagename,imageTimeoutSecond);
@@ -1083,7 +1083,7 @@ public class SikuliUtil {
 		}
 	}
 	
-	/** 键盘在区域中粘贴文字，不受输入法影响（区域前提是可输入框） */
+	/** 键盘在区域中粘贴文字，不受输入法影响（区域前提是可输入框），VNCscreen有bug，远端执行的时候粘贴的是原本剪贴板内容 */
 	public void keyboardPasteTextRegion(Region region, String text){
 		try{
 //			System.out.println("当前系统编码是"+System.getProperty("sun.jnu.encoding"));
