@@ -85,8 +85,8 @@ public class Mail003_Home {
 	@那么("^成功打开联系人邮件Tab并正常显示$")
 	public void homeContactMail_step2(DataTable datatable) {
 		logger.info("homeContactMail_step2:成功打开联系人邮件Tab并正常显示");
-		List<Map<String,String>> data = datatable.asMaps();  
-		String expect = data.get(0).get("overviewContactMailTab"); 
+		List<Map<String,String>> data = datatable.asMaps();
+		String expect = data.get(0).get("overviewContactMailTab");
 		String actual = seleniumUtil.getAttributeText(pageContext.getElementLocator("overviewContactMailTab"), "title");
 		seleniumUtil.assertEquals(actual, expect);
 	}
